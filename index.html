@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+
+<head>
+  <meta charset="UTF-8">
+  <title>Zachary King</title>
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+<style>
+  body {
+      background: #050f1f;
+  }
+  a:active,
+  a:hover,
+  a:link,
+  a:visited {
+      color: #adff2f;
+  }
+  .terminal-window {
+      text-align: left;
+      height: calc(100vh - 2vh);
+      border-radius: 10px;
+      margin: auto;
+      position: relative;
+      padding-bottom: 2px;
+  }
+  .terminal-window header {
+      background: #e0e8f0;
+      height: 30px;
+      border-radius: 8px 8px 0 0;
+      padding-left: 10px;
+  }
+  .terminal-window header .button {
+      width: 12px;
+      height: 12px;
+      margin: 10px 4px 0 0;
+      display: inline-block;
+      border-radius: 8px;
+  }
+  .terminal-window header .button.green {
+      cursor: pointer;
+      background: #3bb662;
+  }
+  .terminal-window header .button.yellow {
+      cursor: pointer; 
+      background: #e5c30f;
+  }
+  .terminal-window header .button.red {
+      cursor: pointer;
+      background: #e75448;
+  }
+  .terminal-window section.terminal {
+      color: #fff;
+      font-family: Menlo, Monaco, Consolas, "Courier New", Courier;
+      font-size: 11pt;
+      background: #30353a;
+      padding: 10px;
+      box-sizing: border-box;
+      position: absolute;
+      width: 100%;
+      top: 30px;
+      bottom: 0;
+      overflow: auto;
+  }
+  .terminal-window section.terminal .typed-cursor {
+      opacity: 1;
+      -webkit-animation: .7s infinite blink;
+      -moz-animation: .7s infinite blink;
+      animation: .7s infinite blink;
+  }
+  @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+  }
+  @-webkit-keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+  }
+  @-moz-keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+  }
+  .terminal-data {
+      display: none;
+  }
+  .terminal-window .gray {
+      color: gray;
+  }
+  .terminal-window .green {
+      color: green;
+  }
+</style>
+</head>
+
+<body translate="no">
+  <div class="terminal-window">
+  <header>
+    <div class="button red"></div>
+    <div class="button yellow"></div>
+    <div class="button green"></div>
+  </header>
+  <section class="terminal">
+    <div class="history"></div>
+    $&nbsp;<span class="prompt"></span>
+    <span class="typed-cursor"></span>
+  </section>
+</div>
+
+<!-- data -->
+<div class="terminal-data mimik-run-output">
+
+<br><B>Zachary King, B.S. Cybersecurity</B><br>
+ ----------------------------------------------<br>
+<B>About</B>
+<p>I'm a cybersecurity professional with a passion for tackling tough technical projects and always improving my skills. I have experience in Linux systems administration and penetration testing, with a focus on network security.</p>
+
+<p>Outside of work, I stay active in the cybersecurity community by participating in and organizing conferences and workshops, always learning and networking with others.</p>
+<B>Certifications</B>
+<p>Here is a list of my certifications:</p>
+<ul>
+<li>Offensive Security Certified Professional (OSCP)</li>
+<li>CompTIA Advanced Security Practitioner (CASP+) (CAS-004)</li>
+<li>CompTIA Pentest+ (PT0-002)</li>
+<li>CompTIA Cybersecurity Analyst (CySa+) (CS0-002)</li>
+<li>CompTIA Security+ (SY0-601)</li>
+<li>Linux Professional Institute LPIC-1</li>
+<li>ISC2 Certified in Cybersecurity</li>
+<li>eLearnSecurity Junior Penetration Tester (eJPT)</li>
+</ul>
+
+<B>Contact Information</B>
+<p>You can reach me via the following methods:</p>
+<ul>
+<li><a href="mailto:zachary.a.king@protonmail.com">Email: zachary.a.king@protonmail.com</a></li>
+<li><a href="https://github.com/FateNull">GitHub: FateNull</a></li>
+<li><a href="https://linkedin.com/in/zak-king">LinkedIn: zak-king</a></li>
+</ul>
+<center><B>WORK EXPERIENCE</B></center>
+<table cellpadding="0" cellspacing="0" width="100%" class="courseDetails">
+<tbody>
+
+<tr>
+<td nowrap="" valign="top" class="moduleCell">
+<table>
+<tbody><tr>
+<td><span class="moduleTitle">1.</span></td>
+<td nowrap=""><span class="moduleTitle">Penetration Tester at Apple</span></td>
+</tr>
+<tr>
+<td></td>
+<td class="duration"><span class="duration">September 2024 - Present</span></td>
+</tr>
+</tbody></table></td>
+<td class="content ">
+<ul>
+<li>Conducts deep-dive manual penetration tests against Apple’s Online Store, Apple Store App, Retail systems, and backend payment platforms.</li>
+<li>Reviews and analyzes source code for web, mobile, and cloud-based applications to detect security flaws in workflows.</li>
+<li>Executes mobile application security testing, leveraging tools and methodologies to assess iOS app security, data storage, and API interactions.</li>
+<li>Serves as a security advisor for product teams, guiding them in incorporating secure coding practices and architectural design improvements.</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td nowrap="" valign="top" class="moduleCell">
+<table>
+<tbody><tr>
+<td><span class="moduleTitle">2.</span></td>
+<td nowrap=""><span class="moduleTitle">Penetration Tester at A-LIGN</span></td>
+</tr>
+<tr>
+<td></td>
+<td class="duration"><span class="duration">July 2024 - September 2024</span></td>
+</tr>
+</tbody></table></td>
+<td class="content ">
+<ul>
+<li>Conducted thorough internal, external, and web application penetration tests, identifying critical vulnerabilities across diverse client environments.</li>
+<li>Performed cloud and API penetration tests, uncovering key security flaws and providing actionable remediation recommendations.</li>
+<li>Executed comprehensive vulnerability assessments, using tools like Nessus and Burp Suite, to help clients improve their overall security posture.</li>
+<li>Authored detailed reports outlining findings, risks, and mitigation strategies tailored for both technical teams and executive-level stakeholders.</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td nowrap="" valign="top" class="moduleCell">
+<table>
+<tbody><tr>
+<td><span class="moduleTitle">3.</span></td>
+<td nowrap=""><span class="moduleTitle">Penetration Tester at Centric Consulting</span></td>
+</tr>
+<tr>
+<td></td>
+<td class="duration"><span class="duration">September 2022 - June 2024</span></td>
+</tr>
+</tbody></table></td>
+<td class="content ">
+<ul>
+<li>Led penetration tests, including internal and external network, web, API, social engineering, and wireless exploitation.</li>
+<li>Developed and presented detailed reports outlining findings, risks, and recommendations to technical and non-technical stakeholders.</li>
+<li>Orchestrated the entire penetration testing process, from initial scoping discussions to final delivery, ensuring a seamless and effective engagement.</li>
+<li>Supported the vCISO and audit teams in delivering customized and comprehensive recommendations to clients.</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td nowrap="" valign="top" class="moduleCell">
+<table>
+<tbody><tr>
+<td><span class="moduleTitle">4.</span></td>
+<td nowrap=""><span class="moduleTitle">Security Engineer at Sweetwater</span></td>
+</tr>
+<tr>
+<td></td>
+<td class="duration"><span class="duration">May 2021 - September 2022</span></td>
+</tr>
+</tbody></table></td>
+<td class="content ">
+<ul>
+<li>Managed various security-related technologies, leading to a 40% increase in EDR coverage across the environment.</li>
+<li>Designed and implemented Bash, Powershell, Ansible, and Expect scripts to automate risk monitoring and environment security.</li>
+<li>Collaborated with different departments and stakeholders to ensure compliance with the PCI-DSS standards.</li>
+<li>Orchestrated patch management of over 3,000 devices using Jamf Pro, resulting in an 80% improvement in patch coverage.</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td nowrap="" valign="top" class="moduleCell">
+<table>
+<tbody><tr>
+<td><span class="moduleTitle">5.</span></td>
+<td nowrap=""><span class="moduleTitle">Security Engineer at King Realty, LLC</span></td>
+</tr>
+<tr>
+<td></td>
+<td class="duration"><span class="duration">May 2020 - May 2021</span></td>
+</tr>
+</tbody></table></td>
+<td class="content ">
+<ul>
+<li>Recommended, installed, and configured networking equipment and server hardware for a new office location.</li>
+<li>Deployed, administered, and configured network services, including IPS, OpenVPN, LDAP, and RADIUS, within the environment.</li>
+<li>Created and managed a secure, segmented network file server for business records, supporting data digitization.</li>
+<li>Developed and implemented technical policies, documented assets, and established standard operating procedures for IT resources.</li>
+</ul>
+</td>
+</tr>
+
+</tbody>
+</table>
+<hr>
+<center><B>INDUSTRY CONTRIBUTIONS</B></center>
+<table cellpadding="0" cellspacing="0" width="100%" class="courseDetails">
+<tbody>
+
+<tr>
+<td nowrap="" valign="top" class="moduleCell">
+<table>
+<tbody><tr>
+<td><span class="moduleTitle">1.</span></td>
+<td nowrap=""><span class="moduleTitle">Red Team Member at National Collegiate Cyber Defense Competition</span></td>
+</tr>
+<tr>
+<td></td>
+<td class="duration"><span class="duration">August 2023 - Present</span></td>
+</tr>
+</tbody></table></td>
+<td class="content ">
+<ul>
+<li>Participated in WRCCDC, MWCCDC, and MACCDC as a member of the red team, simulating cyber-attacks to test the defenses of teams.</li>
+<li>Developed and executed strategies for network penetration testing and post-exploitation tasks in a competitive environment.</li>
+<li>Collaborated with a team of cybersecurity experts to create realistic threat scenarios, enhancing the learning experience for blue team participants.</li>
+<li>Utilized a variety of tools and techniques for ethical hacking, including network scanning and scripting custom attack vectors.</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td nowrap="" valign="top" class="moduleCell">
+<table>
+<tbody><tr>
+<td><span class="moduleTitle">2.</span></td>
+<td nowrap=""><span class="moduleTitle">Cybersecurity Speaker at Churubusco Chamber of Commerce</span></td>
+</tr>
+<tr>
+<td></td>
+<td class="duration"><span class="duration">June 2023 - September 2023</span></td>
+</tr>
+</tbody></table></td>
+<td class="content ">
+<ul>
+<li>Two-time speaker at The Churubusco Chamber of Commerce, educating business leaders on cybersecurity best practices.</li>
+<li>Engaged in fruitful discussions with attendees, providing tailored insights to enhance organizations' cybersecurity posture.</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td nowrap="" valign="top" class="moduleCell">
+<table>
+<tbody><tr>
+<td><span class="moduleTitle">3.</span></td>
+<td nowrap=""><span class="moduleTitle">Organizer | Lead CTF Architect</span></td>
+</tr>
+<tr>
+<td></td>
+<td class="duration"><span class="duration">October 2021 - Present</span></td>
+</tr>
+</tbody></table></td>
+<td class="content ">
+<ul>
+<li>Led team in the creation and documentation of CTF challenges for the annually recurring BSides Fort Wayne CTF.</li>
+<li>Coordinated with organizers leading up to the event to architect and design the BSides Fort Wayne conference.</li>
+<li>Built recurring offensive security labs and learning meetups, serving as a mentor on penetration testing and CTFs.</li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td nowrap="" valign="top" class="moduleCell">
+<table>
+<tbody><tr>
+<td><span class="moduleTitle">4.</span></td>
+<td nowrap=""><span class="moduleTitle">Team Captain | Linux Lead at Indiana Tech Cyber Warriors</span></td>
+</tr>
+<tr>
+<td></td>
+<td class="duration"><span class="duration">September 2019 - April 2023</span></td>
+</tr>
+</tbody></table></td>
+<td class="content ">
+<ul>
+<li>Managed a 20-member team in diverse specializations, including Linux, penetration testing, Windows, networking, and GRC.</li>
+<li>Prepared for and participated in various cyber defense competitions, such as CPTC, CyberForce, Hivestorm, NCL, and CCDC.</li>
+<li>Oversaw the development of training materials for team members, including Linux labs and CTF challenges.</li>
+<li>Engaged in semi-monthly 8-hour-long purple team events to ensure robust penetration testing and hardening abilities.</li>
+<li>Designed and deployed complex 25+ server network topologies with diverse Windows, Linux, and ESXi services to practice within.</li>
+<li>Achieved four consecutive Indiana CCDC State Championship titles, with multiple second-place finishes at National Qualifiers.</li>
+<li>Led team to global finals for Collegiate Penetration Testing Competition, competing against prominent universities such as Stanford and RIT.</li>
+</ul>
+</td>
+</tr>
+
+</tbody>
+</table>
+
+
+</tbody>
+</table>
+
+
+</tbody></table></td></tr>
+</tbody></table>
+    <br><br>
+    <span class="gray">------------------------------------------------</span><br>
+    
+ <br>
+&nbsp;Completed in 0.01s<br>
+  <br>
+</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://www.mattboldt.com/demos/typed-js/js/typed.custom.js'></script>
+<script>
+$(function () {
+  var data = [
+  {
+    action: 'type',
+    strings: ["cd /Users/zacharyking/resume/^200"],
+    output: ' ',
+    postDelay: 2 },
+
+  {
+    action: 'type',
+    strings: ['cat resume.rtf^400'],
+    output: $('.mimik-run-output').html()}];
+  runScripts(data, 0);
+});
+
+function runScripts(data, pos) {
+  var prompt = $('.prompt'),
+  script = data[pos];
+  if (script.clear === true) {
+    $('.history').html('');
+  }
+  switch (script.action) {
+    case 'type':
+      prompt.removeData();
+      $('.typed-cursor').text('');
+      prompt.typed({
+        strings: script.strings,
+        typeSpeed: -50,
+        startDelay: 0,
+        callback: function () {
+          var history = $('.history').html();
+          history = history ? [history] : [];
+          history.push('$ ' + prompt.text());
+          if (script.output) {
+            history.push(script.output);
+            prompt.html('');
+            $('.history').html(history.join('<br>'));
+          }
+          $('section.terminal').scrollTop(0);
+          pos++;
+          if (pos < data.length) {
+            setTimeout(function () {
+              runScripts(data, pos);
+            }, script.postDelay || 1);
+          }
+        } });
+
+      break;
+    case 'view':
+      break;}
+}
+</script>
+</body>
+
+</html>
