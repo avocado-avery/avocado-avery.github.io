@@ -91,6 +91,43 @@
   .terminal-window .green {
       color: green;
   }
+
+
+  .projects { margin: 1.25rem 0; }
+  .projects h2 {
+    text-align: center; letter-spacing: .06em; margin: .25rem 0 1rem 0;
+  }
+  .project-card {
+    border-top: 1px solid #666; /* subtle divider between projects */
+    padding: 14px 0;
+  }
+  .project-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap;
+  }
+  .project-title {
+    font-weight: 700;
+  }
+  .project-index {
+    opacity: .8; margin-right: 6px;
+  }
+  .project-dates {
+    white-space: nowrap; opacity: .85; font-weight: 600;
+  }
+  .project-body {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: 1fr; /* mobile default */
+    gap: 4px;
+  }
+  .project-body ul {
+    margin: 0; padding-left: 18px;
+  }
+  /* widen bullets slightly on large screens */
+  @media (min-width: 800px) {
+    .project-body { grid-template-columns: minmax(420px, 1fr); }
+  }
+
 </style>
 </head>
 
@@ -121,7 +158,7 @@
 <B>Contact Information</B>
 <p>You can reach me via the following methods:</p>
 <ul>
-<li><a href="mailto:avery.personal06@gmail.com">Email: avery.personal06@gmail.com</a></li>
+<li><a href="mailto:avery.hughes@itcw.org">Email: avery.hughes@itcw.org</a></li>
 <li><a href="https://github.com/Avocado-Avery">GitHub: Avocado-Avery</a></li>
 <li><a href="https://linkedin.com/in/avery-hughes06">LinkedIn: avery-hughes</a></li>
 </ul>
@@ -156,7 +193,6 @@
 </table>
 
 
-
 <hr>
 <center><B>INDUSTRY CONTRIBUTIONS</B></center>
 <table cellpadding="0" cellspacing="0" width="100%" class="courseDetails">
@@ -167,12 +203,12 @@
 <td nowrap="" valign="top" class="moduleCell">
 <table>
 <tbody><tr>
-<td><span class="moduleTitle">4.</span></td>
+<td><span class="moduleTitle">1.</span></td>
 <td nowrap=""><span class="moduleTitle">Team Lieutenant | Linux Lead & Co-Offsec Lead at Indiana Tech Cyber Warriors</span></td>
 </tr>
 <tr>
 <td></td>
-<td class="duration"><span class="duration">August 2024 - Present</span></td>
+<td class="duration"><span class="duration">August 2025 - Present</span></td>
 </tr>
 </tbody></table></td>
 <td class="content ">
@@ -190,9 +226,87 @@
 </tbody>
 </table>
 
+<hr>
+<center><B>PROJECTS</B></center>
+
+<table cellpadding="0" cellspacing="0" width="100%" class="courseDetails">
+<tbody>
+
+<tr>
+  <td class="content">
+    <span class="moduleTitle">1. Data Center Reorganization</span>  
+    <ul>
+      <li>Reworked physical layout (racks, cabling, airflow) and logical planning (VM distribution, storage pools).</li>
+      <li>Improved maintainability and reduced downtime risk; created a scalable baseline for future growth.</li>
+    </ul>
+  </td>
+</tr>
+
+<tr>
+  <td class="content">
+    <span class="moduleTitle">2. Proxmox Node Deployment</span>  
+    <ul>
+      <li>Designed and deployed new Proxmox nodes to expand virtualization capacity and cluster resilience.</li>
+      <li>Enabled HA support, expanded lab capacity, and separated critical from experimental infrastructure.</li>
+    </ul>
+  </td>
+</tr>
+
+<tr>
+  <td class="content">
+    <span class="moduleTitle">3. Core Infrastructure Dockerization & Reverse Proxy</span>  
+    <ul>
+      <li>Containerized core services (Nextcloud, Wiki.js, CTFd) into Docker stacks.</li>
+      <li>Implemented reverse proxy with public DNS + TLS for secure access.</li>
+      <li>Improved scalability and usability for internal teams and collaborators.</li>
+    </ul>
+  </td>
+</tr>
+
+<tr>
+  <td class="content">
+    <span class="moduleTitle">4. SSP Portal Development</span>  
+    <ul>
+      <li>Contributed to design/deployment of a self-service portal for streamlined access.</li>
+      <li>Handled backend integration, reverse proxy setup, and containerization.</li>
+    </ul>
+  </td>
+</tr>
+
+<tr>
+  <td class="content">
+    <span class="moduleTitle">5. Cyber Club & Incident Response Environment</span>  
+    <ul>
+      <li>Spearheaded Indiana Tech Cybersecurity Club environment on Proxmox for everyday students.</li>
+      <li>Built IR server for mock competitions simulating real-world attack/defense scenarios.</li>
+      <li>Supports Cyber Warriors and club members in competition preparation.</li>
+    </ul>
+  </td>
+</tr>
+
+<tr>
+  <td class="content">
+    <span class="moduleTitle">6. Active Directory Migration</span>  
+    <ul>
+      <li>Planned and executed full AD migration, consolidating domains and accounts.</li>
+      <li>Managed GPOs and authentication systems with zero downtime.</li>
+    </ul>
+  </td>
+</tr>
+
+<tr>
+  <td class="content">
+    <span class="moduleTitle">7. Local AI Deployment</span>  
+    <ul>
+      <li>Deployed local LLMs for private, offline inference and experimentation.</li>
+      <li>Integrated models into lab workflows to support secure research and testing.</li>
+    </ul>
+  </td>
+</tr>
 
 </tbody>
 </table>
+
 
 
 </tbody></table></td></tr>
