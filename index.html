@@ -234,75 +234,85 @@
 
 <tr>
   <td class="content">
-    <span class="moduleTitle">1. Data Center Reorganization</span>  
+    <span class="moduleTitle">1. Data Center Reorganization</span>
     <ul>
-      <li>Reworked physical layout (racks, cabling, airflow) and logical planning (VM distribution, storage pools).</li>
-      <li>Improved maintainability and reduced downtime risk; created a scalable baseline for future growth.</li>
+      <li><strong>Rack/power:</strong> Hot/cold aisle, A/B PDUs, labeled/length-matched patching.</li>
+      <li><strong>Network:</strong> ToR with redundant uplinks, VLANs, LACP, dedicated OOB.</li>
+      <li><strong>Virtualization:</strong> Proxmox HA/live migration, gold images, reservations/anti-affinity.</li>
+      <li><strong>Storage:</strong> ZFS/LVM-thin tiers, snapshots/replication, NFS/iSCSI multipath.</li>
+      <li><strong>Core & ops:</strong> Reverse proxy + TLS, DHCP/DNS/IPAM (NetBox), LDAP/SSO, Prometheus/Grafana.</li>
+      <li><strong>Outcome:</strong> Fewer SPOFs, faster recovery, clear scale path.</li>
     </ul>
   </td>
 </tr>
 
 <tr>
   <td class="content">
-    <span class="moduleTitle">2. Proxmox Node Deployment</span>  
+    <span class="moduleTitle">2. Proxmox Node Deployment</span>
     <ul>
-      <li>Designed and deployed new Proxmox nodes to expand virtualization capacity and cluster resilience.</li>
-      <li>Enabled HA support, expanded lab capacity, and separated critical from experimental infrastructure.</li>
+      <li><strong>Cluster:</strong> PVE 9, tuned corosync, HA priorities, verified quorum.</li>
+      <li><strong>Network & storage:</strong> LACP + VLAN trunks; ZFS (RAIDZ2/mirror) and Ceph/NFS/iSCSI with multipath.</li>
+      <li><strong>Compute & I/O:</strong> CPU pinning/NUMA, reservations, SR-IOV/passthrough, HugePages.</li>
+      <li><strong>Ops:</strong> Cloud-init templates, PBS backups + off-site, Prometheus/Grafana, RBAC/2FA.</li>
+      <li><strong>Outcome:</strong> More capacity and HA; clean prod/lab separation; faster failover.</li>
     </ul>
   </td>
 </tr>
 
 <tr>
   <td class="content">
-    <span class="moduleTitle">3. Core Infrastructure Dockerization & Reverse Proxy</span>  
+    <span class="moduleTitle">3. Core Infrastructure Dockerization & Reverse Proxy</span>
     <ul>
-      <li>Containerized core services (Nextcloud, Wiki.js, CTFd) into Docker stacks.</li>
-      <li>Implemented reverse proxy with public DNS + TLS for secure access.</li>
-      <li>Improved scalability and usability for internal teams and collaborators.</li>
+      <li><strong>Stacks:</strong> Compose per service, healthchecks, limits, named volumes.</li>
+      <li><strong>Edge:</strong> Nginx, HTTPS everywhere, HSTS, optional mTLS.</li>
+      <li><strong>Ingress/DNS:</strong> Split-horizon, per-service hostnames, NAT loopback friendly.</li>
+      <li><strong>Security & ops:</strong> Non-root/read-only/cap_drop, rate limits; logs/metrics, backups with test restores.</li>
+      <li><strong>Outcome:</strong> Faster rollouts, safer exposure, simpler TLS management.</li>
     </ul>
   </td>
 </tr>
 
 <tr>
   <td class="content">
-    <span class="moduleTitle">4. SSP Portal Development</span>  
+    <span class="moduleTitle">4. SSP Portal Development</span>
     <ul>
-      <li>Contributed to design/deployment of a self-service portal for streamlined access.</li>
-      <li>Handled backend integration, reverse proxy setup, and containerization.</li>
+      <li><strong>Catalog:</strong> Self-service requests with validation, approvals, audit.</li>
+      <li><strong>Security:</strong> Encypted LDAP (LDAPS).</li>
+      <li><strong>Ingress & security:</strong> Nginx, multi-stage images, CSRF/CSP, secrets hygiene.</li>
+      <li><strong>Outcome:</strong> Lower ticket volume/MTTR; standardized, auditable changes.</li>
     </ul>
   </td>
 </tr>
 
 <tr>
   <td class="content">
-    <span class="moduleTitle">5. Cyber Club & Incident Response Environment</span>  
+    <span class="moduleTitle">5. Cyber Club & Incident Response Environment</span>
     <ul>
-      <li>Spearheaded Indiana Tech Cybersecurity Club environment on Proxmox for everyday students.</li>
-      <li>Built IR server for mock competitions simulating real-world attack/defense scenarios.</li>
-      <li>Supports Cyber Warriors and club members in competition preparation.</li>
+      <li><strong>Lab:</strong> Proxmox pools, quotas, snapshot/rollback.</li>
+      <li><strong>Network:</strong> Segmented VLANs (red/blue/DMZ/mgmt), pfSense edge, per-team subnets.</li>
+      <li><strong>Identity:</strong> AD/LDAP with RBAC.</li>
+      <li><strong>Exercises:</strong> ATT&CK-mapped scenarios (Atomic/Caldera), CTFd scoring, service health checks.</li>
+      <li><strong>Outcome:</strong> Repeatable hands-on training with measurable detection/response.</li>
     </ul>
   </td>
 </tr>
 
 <tr>
   <td class="content">
-    <span class="moduleTitle">6. Active Directory Migration</span>  
+    <span class="moduleTitle">6. Active Directory Migration</span>
     <ul>
-      <li>Planned and executed full AD migration, consolidating domains and accounts.</li>
-      <li>Managed GPOs and authentication systems with zero downtime.</li>
+      <li><strong>Design:</strong> Target OU/GPO and namespace plan; trust and topology review.</li>
+      <li><strong>Build:</strong> Hardened DCs, schema validated in lab; FSMO transfer with health gates.</li>
+      <li><strong>Services:</strong> AD-integrated DNS/DHCP cutover.</li>
+      <li><strong>Policy & endpoints:</strong> Central Store, scoped GPOs.</li>
+      <li><strong>Outcome:</strong> Consolidated domains, zero downtime, cleaner GPO posture.</li>
     </ul>
   </td>
 </tr>
 
-<tr>
-  <td class="content">
-    <span class="moduleTitle">7. Local AI Deployment</span>  
-    <ul>
-      <li>Deployed local LLMs for private, offline inference and experimentation.</li>
-      <li>Integrated models into lab workflows to support secure research and testing.</li>
-    </ul>
-  </td>
-</tr>
+
+
+
 
 </tbody>
 </table>
