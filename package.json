@@ -8,6 +8,13 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  {
+  "name": "avocado-avery.github.io",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  }
+}
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
     "typescript": "^5.2.2",
