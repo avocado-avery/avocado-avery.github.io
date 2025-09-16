@@ -11,21 +11,15 @@
   "username": "visitor",
   "hostname": "itsavery.me",
   "password": "avery",
+  "passwordHint": "It's my first name :)",
   "repoLink": "https://github.com/avocado-avery/avocado-avery.github.io",
   "social": {
     "email": "avery.hughes@itcw.org",
     "github": "avocado-avery",
-    "linkedin": "avery-hughes06"
+    "linkedin": "avery-hughes06",
+    "hackthebox": "ItzShadyBaby"
   },
-  "aboutGreeting": "Hi stranger. Welcome to My Portfolio Website.",
-  "projects": [
-    ["GofeR", "Vue.js reactivity in Go.", "https://github.com/nasan016/gofer"],
-    [
-      "WebShell",
-      "Terminal styled website.",
-      "https://github.com/nasan016/webshell"
-    ]
-  ],
+  "aboutGreeting": "Hi stranger. My name is Avery Hughes, I am a cybersecurity student at the Indiana Institute of Technology. ",
   "colors": {
     "background": "#1B1A17",
     "foreground": "#EDE0D4",

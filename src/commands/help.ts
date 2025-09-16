@@ -2,11 +2,14 @@ const helpObj = {
   commands: [
     ["'about'", "Who made this website?"],
     ["'projects'", "Maybe there's something interesting."],
+    ["'industry'", "View my industry contributions."],
+    ["'work'", "View my work experience."],
     ["'whoami'", "A perplexing question."],
     ["'sudo su'", "Become root"],
     ["'repo'", "View the Github Repository."],
     ["'banner'", "Display the banner."],
     ["'clear'", "Clear the terminal."],
+    ["'reboot'", "Reboot the machine."],
   ],
 };
 

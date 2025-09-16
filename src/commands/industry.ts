@@ -1,0 +1,15 @@
+export const INDUSTRY: string[] = [
+  "<br>",
+  "<span class='command'>INDUSTRY CONTRIBUTIONS</span>",
+  "<br>",
+  "1. Team Lieutenant | Linux Lead & Co-Offsec Lead at Indiana Tech Cyber Warriors",
+  "   August 2025 - Present",
+  "<br>",
+  "   • Managed a 15-member team in Linux, penetration testing, Windows, networking, and GRC.",
+  "   • Prepared for CPTC, CyberForce, Hivestorm, NCL, and CCDC competitions.",
+  "   • Built training material including Linux labs and CTF challenges.",
+  "   • Ran semi-monthly 8-hour purple team events to sharpen testing and hardening.",
+  "   • Designed and deployed 25+ server lab topologies across Windows, Linux, and ESXi.",
+  "   • Achieved the team’s highest placement in National CCDC vs. schools like UCF and Stanford.",
+  "<br>",
+];

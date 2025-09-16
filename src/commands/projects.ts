@@ -1,27 +1,46 @@
-import command from '../../config.json' assert {type: 'json'};
-
-const createProject = () : string[] => {
-  let string = "";
-  const projects : string[] = [];
-  const files = `${command.projects.length} File(s)`;
-  const SPACE = "&nbsp;";
-
-  projects.push("<br>")
-
-  command.projects.forEach((ele) => {
-    let link = `<a href="${ele[2]}" target="_blank">${ele[0]}</a>`
-    string += SPACE.repeat(2);
-    string += link;
-    string += SPACE.repeat(17 - ele[0].length);
-    string += ele[1];
-    projects.push(string);
-    string = '';
-  });
-
-  projects.push("<br>");
-  projects.push(files);
-  projects.push("<br>");
-  return projects
-}
-
-export const PROJECTS = createProject()
+export const PROJECTS: string[] = [
+  "<span class='command'>PROJECT HIGHLIGHTS</span>",
+  "<br>",
+  "1. Data Center Reorganization",
+  "   • Rack/power: Hot/cold aisle, A/B PDUs, labeled & length-matched patching.",
+  "   • Network: ToR with redundant uplinks, VLANs, LACP, dedicated OOB.",
+  "   • Virtualization: Proxmox HA/live migration, gold images, reservations/anti-affinity.",
+  "   • Storage: ZFS/LVM-thin tiers, snapshots/replication, NFS/iSCSI multipath.",
+  "   • Core & ops: Reverse proxy + TLS, DHCP/DNS/IPAM (NetBox), LDAP/SSO, Prometheus/Grafana.",
+  "   • Outcome: Fewer SPOFs, faster recovery, clear scale path.",
+  "<br>",
+  "2. Proxmox Node Deployment",
+  "   • Cluster: PVE 9, tuned corosync, HA priorities, verified quorum.",
+  "   • Net & storage: LACP + VLAN trunks; ZFS (RAIDZ2/mirror) and Ceph/NFS/iSCSI w/ multipath.",
+  "   • Compute & I/O: CPU pinning/NUMA, reservations, SR-IOV/passthrough, HugePages.",
+  "   • Ops: Cloud-init templates, PBS backups + off-site, Prometheus/Grafana, RBAC/2FA.",
+  "   • Outcome: More capacity & HA; clean prod/lab separation; faster failover.",
+  "<br>",
+  "3. Core Infrastructure Dockerization & Reverse Proxy",
+  "   • Stacks: Compose per service, healthchecks, limits, named volumes.",
+  "   • Edge: Nginx, HTTPS everywhere, HSTS, optional mTLS.",
+  "   • Ingress/DNS: Split-horizon, per-service hostnames, NAT loopback friendly.",
+  "   • Security & ops: Non-root/read-only/cap_drop, rate limits; logs/metrics; backup tests.",
+  "   • Outcome: Faster rollouts, safer exposure, simpler TLS management.",
+  "<br>",
+  "4. SSP Portal Development",
+  "   • Catalog: Self-service requests with validation, approvals, audit.",
+  "   • Security: Encrypted LDAP (LDAPS).",
+  "   • Ingress & security: Nginx, multi-stage images, CSRF/CSP, secrets hygiene.",
+  "   • Outcome: Lower ticket volume/MTTR; standardized, auditable changes.",
+  "<br>",
+  "5. Cyber Club & Incident Response Environment",
+  "   • Lab: Proxmox pools, quotas, snapshot/rollback.",
+  "   • Network: Segmented VLANs (red/blue/DMZ/mgmt), pfSense edge, per-team subnets.",
+  "   • Identity: AD/LDAP with RBAC.",
+  "   • Exercises: ATT&CK-mapped (Atomic/Caldera), CTFd scoring, service health checks.",
+  "   • Outcome: Repeatable training with measurable detection/response.",
+  "<br>",
+  "6. Active Directory Migration",
+  "   • Design: Target OU/GPO & namespace; trust/topology review.",
+  "   • Build: Hardened DCs; schema validated in lab; FSMO transfer with health gates.",
+  "   • Services: AD-integrated DNS/DHCP cutover.",
+  "   • Policy & endpoints: Central Store, scoped GPOs.",
+  "   • Outcome: Consolidated domains, zero downtime, cleaner GPO posture.",
+  "<br>",
+];

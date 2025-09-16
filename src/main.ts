@@ -4,7 +4,9 @@ import { BANNER } from "./commands/banner";
 import { ABOUT } from "./commands/about";
 import { DEFAULT } from "./commands/default";
 import { PROJECTS } from "./commands/projects";
-
+import { WORK } from "./commands/work";
+import { INDUSTRY } from "./commands/industry";
+import { PROJECTS } from "./commands/projects";
 // ----------------------- state -----------------------
 let mutWriteLines = document.getElementById("write-lines");
 let historyIdx = 0;
@@ -24,6 +26,9 @@ const PASSWORD = document.getElementById("password-input");
 const PASSWORD_INPUT = document.getElementById(
   "password-field",
 ) as HTMLInputElement;
+const PASSWORD_HINT = document.getElementById(
+  "password-hint",
+) as HTMLElement | null;
 
 const PRE_HOST = document.getElementById("pre-host");
 const PRE_USER = document.getElementById("pre-user");
@@ -45,6 +50,8 @@ const COMMANDS = [
   "whoami",
   "repo",
   "banner",
+  "work",
+  "industry",
   "clear",
   "sudo su",
   "exit",
@@ -313,6 +320,12 @@ function commandHandler(input: string) {
       USERINPUT.disabled = true;
       if (INPUT_HIDDEN) (INPUT_HIDDEN as HTMLElement).style.display = "none";
       if (PASSWORD) (PASSWORD as HTMLElement).style.display = "block";
+      if (PASSWORD_HINT) {
+        PASSWORD_HINT.textContent = command.passwordHint ?? "";
+        PASSWORD_HINT.style.display = command.passwordHint
+          ? "inline-block"
+          : "none";
+      }
       setTimeout(() => PASSWORD_INPUT.focus(), 100);
       break;
 
@@ -332,6 +345,14 @@ function commandHandler(input: string) {
       }
       if (isRoot) writeLines(["src", "<br>"]);
       else writeLines(["Permission not granted.", "<br>"]);
+      break;
+
+    case "work":
+      writeLines(WORK);
+      break;
+
+    case "industry":
+      writeLines(INDUSTRY);
       break;
 
     default:
@@ -367,6 +388,7 @@ function revertPasswordChanges() {
   (INPUT_HIDDEN as HTMLElement).style.display = "block";
   (PASSWORD as HTMLElement).style.display = "none";
   isPasswordInput = false;
+  if (PASSWORD_HINT) PASSWORD_HINT.style.display = "none";
   setTimeout(() => USERINPUT.focus(), 200);
 }
 
