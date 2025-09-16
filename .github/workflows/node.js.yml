@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [22.x]   # test LTS + current
+        node-version: [22.x] # test LTS + current
 
     steps:
       - uses: actions/checkout@v4
@@ -31,8 +31,7 @@ jobs:
         run: npm run typecheck --if-present
 
       - name: Build
-        run: npm run build --if-present
+        run: npm run dev --if-present
 
       - name: Test
         run: npm test --if-present
-
