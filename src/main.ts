@@ -251,8 +251,16 @@ function commandHandler(input: string) {
       break;
 
     case "reboot":
-      writeLines(["Rebooting...", "<br>"]);
-      setTimeout(() => location.reload(), 1000);
+      if (bareMode) {
+        writeLines(["", "<br>"]);
+        break;
+      }
+      if (isRoot) {
+        writeLines(["Rebooting...", "<br>"]);
+        setTimeout(() => location.reload(), 1000);
+      } else {
+        writeLines(["Permission not granted.", "<br>"]);
+      }
       break;
 
     case "banner":
