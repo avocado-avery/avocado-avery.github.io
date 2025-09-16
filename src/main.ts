@@ -3,7 +3,6 @@ import { HELP } from "./commands/help";
 import { BANNER } from "./commands/banner";
 import { ABOUT } from "./commands/about";
 import { DEFAULT } from "./commands/default";
-import { PROJECTS } from "./commands/projects";
 import { WORK } from "./commands/work";
 import { INDUSTRY } from "./commands/industry";
 import { PROJECTS } from "./commands/projects";
