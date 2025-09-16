@@ -1,0 +1,52 @@
+{
+  "ascii": [
+    " ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗",
+    " ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝",
+    " ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗  ",
+    " ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝  ",
+    " ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗",
+    "  ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝ "
+  ],
+  "title": "Avery Hughes Portfolio",
+  "username": "visitor",
+  "hostname": "itsavery.me",
+  "password": "avery",
+  "repoLink": "https://github.com/avocado-avery/avocado-avery.github.io",
+  "social": {
+    "email": "avery.hughes@itcw.org",
+    "github": "avocado-avery",
+    "linkedin": "avery-hughes06"
+  },
+  "aboutGreeting": "Hi stranger. Welcome to My Portfolio Website.",
+  "projects": [
+    ["GofeR", "Vue.js reactivity in Go.", "https://github.com/nasan016/gofer"],
+    [
+      "WebShell",
+      "Terminal styled website.",
+      "https://github.com/nasan016/webshell"
+    ]
+  ],
+  "colors": {
+    "background": "#1B1A17",
+    "foreground": "#EDE0D4",
+    "banner": "#B07D62",
+    "border": {
+      "visible": true,
+      "color": "#9C6644"
+    },
+    "prompt": {
+      "default": "#DDB892",
+      "user": "#B5835A",
+      "host": "#7F5539",
+      "input": "#E6CCB2"
+    },
+    "link": {
+      "text": "#A47148",
+      "highlightColor": "#EDE0D4",
+      "highlightText": "#1B1A17"
+    },
+    "commands": {
+      "textColor": "#C38E70"
+    }
+  }
+}

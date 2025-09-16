@@ -1,388 +1,65 @@
-<!DOCTYPE html>
-<html lang="en" >
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="src/css/css-reset.css" />
+    <link rel="stylesheet" href="src/css/style.css" />
+    <link rel="icon" type="image/x-png" href="/res/logo.png" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0 maximum-scale=1"
+    />
+    <script
+      src="https://kit.fontawesome.com/d5effce557.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Avery Hughes Portfolio</title>
+  </head>
 
+  <body>
+    <main id="main">
+      <div id="bars">
+        <div id="bar-1">PortfolioWebsite.bin</div>
+        <div id="bar-2"></div>
+        <div id="bar-3"></div>
+        <div id="bar-4"></div>
+        <div id="bar-5"></div>
+      </div>
+      <br />
+      <div id="terminal">
+        <div>
+          <span id="prompt-pre"
+            ><span id="pre-user"></span>@<span id="pre-host"></span>:$ ~</span
+          >
+        </div>
+        <!-- command output will be inserted before #write-lines-->
+        <a id="write-lines"></a>
+      </div>
+      <div id="input-line">
+        <div>
+          <p id="password-input" style="display: none">
+            Password:
+            <input id="password-field" autocomplete="off" type="password" />
+          </p>
+          <p id="input-hidden">
+            <span id="prompt-live"
+              ><span id="user"></span>@<span id="host"></span>:$ ~</span
+            >
+            <input
+              id="user-input"
+              type="text"
+              enterkeyhint="Enter"
+              spellcheck="false"
+              autocapitalize="none"
+              autocomplete="off"
+            />
+          </p>
+        </div>
+        <br />
+      </div>
+    </main>
+  </body>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Avery Hughes</title>
-  <script>
-  window.console = window.console || function(t) {};
-</script>
-<style>
-  body {
-      background: #050f1f;
-  }
-  a:active,
-  a:hover,
-  a:link,
-  a:visited {
-      color: #adff2f;
-  }
-  .terminal-window {
-      text-align: left;
-      height: calc(100vh - 2vh);
-      border-radius: 10px;
-      margin: auto;
-      position: relative;
-      padding-bottom: 2px;
-  }
-  .terminal-window header {
-      background: #e0e8f0;
-      height: 30px;
-      border-radius: 8px 8px 0 0;
-      padding-left: 10px;
-  }
-  .terminal-window header .button {
-      width: 12px;
-      height: 12px;
-      margin: 10px 4px 0 0;
-      display: inline-block;
-      border-radius: 8px;
-  }
-  .terminal-window header .button.green {
-      cursor: pointer;
-      background: #3bb662;
-  }
-  .terminal-window header .button.yellow {
-      cursor: pointer; 
-      background: #e5c30f;
-  }
-  .terminal-window header .button.red {
-      cursor: pointer;
-      background: #e75448;
-  }
-  .terminal-window section.terminal {
-      color: #fff;
-      font-family: Menlo, Monaco, Consolas, "Courier New", Courier;
-      font-size: 11pt;
-      background: #30353a;
-      padding: 10px;
-      box-sizing: border-box;
-      position: absolute;
-      width: 100%;
-      top: 30px;
-      bottom: 0;
-      overflow: auto;
-  }
-  .terminal-window section.terminal .typed-cursor {
-      opacity: 1;
-      -webkit-animation: .7s infinite blink;
-      -moz-animation: .7s infinite blink;
-      animation: .7s infinite blink;
-  }
-  @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-  }
-  @-webkit-keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-  }
-  @-moz-keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-  }
-  .terminal-data {
-      display: none;
-  }
-  .terminal-window .gray {
-      color: gray;
-  }
-  .terminal-window .green {
-      color: green;
-  }
-
-
-  .projects { margin: 1.25rem 0; }
-  .projects h2 {
-    text-align: center; letter-spacing: .06em; margin: .25rem 0 1rem 0;
-  }
-  .project-card {
-    border-top: 1px solid #666; /* subtle divider between projects */
-    padding: 14px 0;
-  }
-  .project-head {
-    display: flex; align-items: baseline; justify-content: space-between;
-    gap: 12px; flex-wrap: wrap;
-  }
-  .project-title {
-    font-weight: 700;
-  }
-  .project-index {
-    opacity: .8; margin-right: 6px;
-  }
-  .project-dates {
-    white-space: nowrap; opacity: .85; font-weight: 600;
-  }
-  .project-body {
-    margin-top: 8px;
-    display: grid;
-    grid-template-columns: 1fr; /* mobile default */
-    gap: 4px;
-  }
-  .project-body ul {
-    margin: 0; padding-left: 18px;
-  }
-  /* widen bullets slightly on large screens */
-  @media (min-width: 800px) {
-    .project-body { grid-template-columns: minmax(420px, 1fr); }
-  }
-
-</style>
-</head>
-
-<body translate="no">
-  <div class="terminal-window">
-  <header>
-    <div class="button red"></div>
-    <div class="button yellow"></div>
-    <div class="button green"></div>
-  </header>
-  <section class="terminal">
-    <div class="history"></div>
-    $&nbsp;<span class="prompt"></span>
-    <span class="typed-cursor"></span>
-  </section>
-</div>
-
-<!-- data -->
-<div class="terminal-data mimik-run-output">
-
-<br><B>Avery Hughes, B.S. Cybersecurity</B><br>
- ----------------------------------------------<br>
-<B>About</B>
-<p>I'm a cybersecurity professional with a passion for tackling tough technical projects and always improving my skills. I have experience in Linux systems administration and penetration testing.</p>
-
-<p>Outside of work, I stay active in the cybersecurity community by participating in and organizing conferences and workshops, always learning and networking with others.</p>
-
-<B>Contact Information</B>
-<p>You can reach me via the following methods:</p>
-<ul>
-<li><a href="mailto:avery.hughes@itcw.org">Email: avery.hughes@itcw.org</a></li>
-<li><a href="https://github.com/Avocado-Avery">GitHub: Avocado-Avery</a></li>
-<li><a href="https://linkedin.com/in/avery-hughes06">LinkedIn: avery-hughes</a></li>
-</ul>
-<center><B>WORK EXPERIENCE</B></center>
-<table cellpadding="0" cellspacing="0" width="100%" class="courseDetails">
-<tbody>
-
-<tr>
-<td nowrap="" valign="top" class="moduleCell">
-<table>
-<tbody><tr>
-<td><span class="moduleTitle">1.</span></td>
-<td nowrap=""><span class="moduleTitle">Undergraduate Research Assistant</span></td>
-</tr>
-<tr>
-<td></td>
-<td class="duration"><span class="duration">February 2025 - Present</span></td>
-</tr>
-</tbody></table></td>
-<td class="content ">
-<ul>
-<li>Authored and published a peer-reviewed paper, <i>“SecLog: Atomic-swap Based Secure Logging for Decentralized Data Sharing”</i>, presented at the 2025 International Conference on Metaverse.</li>
-<li>Designed and implemented decentralized database backend systems for <a href="https://www.web3db.org/" target="_blank">Web3DB</a>, enabling secure schema registration, IPFS data storage, and blockchain-based indexing for distributed queries.</li>
-<li>Developed and integrated FastAPI services with Web3DB’s smart contract infrastructure, supporting schema inference, parquet conversion, and CID-based indexing on Ethereum test networks.</li>
-<li>Conducted performance evaluations of blockchain-backed logging and query execution, analyzing gas costs, transaction overhead, and distributed query latency across IPFS datasets.</li>
-<li>Collaborated with research and engineering teams to advance decentralized data-sharing standards, ensuring scalability, security, and usability in Web3 applications.</li>
-</ul>
-</td>
-</tr>
-
-</tbody>
-</table>
-
-
-<hr>
-<center><B>INDUSTRY CONTRIBUTIONS</B></center>
-<table cellpadding="0" cellspacing="0" width="100%" class="courseDetails">
-<tbody
-
-
-<tr>
-<td nowrap="" valign="top" class="moduleCell">
-<table>
-<tbody><tr>
-<td><span class="moduleTitle">1.</span></td>
-<td nowrap=""><span class="moduleTitle">Team Lieutenant | Linux Lead & Co-Offsec Lead at Indiana Tech Cyber Warriors</span></td>
-</tr>
-<tr>
-<td></td>
-<td class="duration"><span class="duration">August 2025 - Present</span></td>
-</tr>
-</tbody></table></td>
-<td class="content ">
-<ul>
-<li>Managed a 15-member team in diverse specializations, including Linux, penetration testing, Windows, networking, and GRC.</li>
-<li>Prepared for and participated in various cyber defense competitions, such as CPTC, CyberForce, Hivestorm, NCL, and CCDC.</li>
-<li>Oversaw the development of training materials for team members, including Linux labs and CTF challenges.</li>
-<li>Engaged in semi-monthly 8-hour-long purple team events to ensure robust penetration testing and hardening abilities.</li>
-<li>Designed and deployed complex 25+ server network topologies with diverse Windows, Linux, and ESXi services to practice within.</li>
-<li>Achieved the teams highest placement in the National CCDC competition against schools like UCF and Stanford. </li>
-</ul>
-</td>
-</tr>
-
-</tbody>
-</table>
-
-<hr>
-<center><B>PROJECTS</B></center>
-
-<table cellpadding="0" cellspacing="0" width="100%" class="courseDetails">
-<tbody>
-
-<tr>
-  <td class="content">
-    <span class="moduleTitle">1. Data Center Reorganization</span>
-    <ul>
-      <li><strong>Rack/power:</strong> Hot/cold aisle, A/B PDUs, labeled/length-matched patching.</li>
-      <li><strong>Network:</strong> ToR with redundant uplinks, VLANs, LACP, dedicated OOB.</li>
-      <li><strong>Virtualization:</strong> Proxmox HA/live migration, gold images, reservations/anti-affinity.</li>
-      <li><strong>Storage:</strong> ZFS/LVM-thin tiers, snapshots/replication, NFS/iSCSI multipath.</li>
-      <li><strong>Core & ops:</strong> Reverse proxy + TLS, DHCP/DNS/IPAM (NetBox), LDAP/SSO, Prometheus/Grafana.</li>
-      <li><strong>Outcome:</strong> Fewer SPOFs, faster recovery, clear scale path.</li>
-    </ul>
-  </td>
-</tr>
-
-<tr>
-  <td class="content">
-    <span class="moduleTitle">2. Proxmox Node Deployment</span>
-    <ul>
-      <li><strong>Cluster:</strong> PVE 9, tuned corosync, HA priorities, verified quorum.</li>
-      <li><strong>Network & storage:</strong> LACP + VLAN trunks; ZFS (RAIDZ2/mirror) and Ceph/NFS/iSCSI with multipath.</li>
-      <li><strong>Compute & I/O:</strong> CPU pinning/NUMA, reservations, SR-IOV/passthrough, HugePages.</li>
-      <li><strong>Ops:</strong> Cloud-init templates, PBS backups + off-site, Prometheus/Grafana, RBAC/2FA.</li>
-      <li><strong>Outcome:</strong> More capacity and HA; clean prod/lab separation; faster failover.</li>
-    </ul>
-  </td>
-</tr>
-
-<tr>
-  <td class="content">
-    <span class="moduleTitle">3. Core Infrastructure Dockerization & Reverse Proxy</span>
-    <ul>
-      <li><strong>Stacks:</strong> Compose per service, healthchecks, limits, named volumes.</li>
-      <li><strong>Edge:</strong> Nginx, HTTPS everywhere, HSTS, optional mTLS.</li>
-      <li><strong>Ingress/DNS:</strong> Split-horizon, per-service hostnames, NAT loopback friendly.</li>
-      <li><strong>Security & ops:</strong> Non-root/read-only/cap_drop, rate limits; logs/metrics, backups with test restores.</li>
-      <li><strong>Outcome:</strong> Faster rollouts, safer exposure, simpler TLS management.</li>
-    </ul>
-  </td>
-</tr>
-
-<tr>
-  <td class="content">
-    <span class="moduleTitle">4. SSP Portal Development</span>
-    <ul>
-      <li><strong>Catalog:</strong> Self-service requests with validation, approvals, audit.</li>
-      <li><strong>Security:</strong> Encypted LDAP (LDAPS).</li>
-      <li><strong>Ingress & security:</strong> Nginx, multi-stage images, CSRF/CSP, secrets hygiene.</li>
-      <li><strong>Outcome:</strong> Lower ticket volume/MTTR; standardized, auditable changes.</li>
-    </ul>
-  </td>
-</tr>
-
-<tr>
-  <td class="content">
-    <span class="moduleTitle">5. Cyber Club & Incident Response Environment</span>
-    <ul>
-      <li><strong>Lab:</strong> Proxmox pools, quotas, snapshot/rollback.</li>
-      <li><strong>Network:</strong> Segmented VLANs (red/blue/DMZ/mgmt), pfSense edge, per-team subnets.</li>
-      <li><strong>Identity:</strong> AD/LDAP with RBAC.</li>
-      <li><strong>Exercises:</strong> ATT&CK-mapped scenarios (Atomic/Caldera), CTFd scoring, service health checks.</li>
-      <li><strong>Outcome:</strong> Repeatable hands-on training with measurable detection/response.</li>
-    </ul>
-  </td>
-</tr>
-
-<tr>
-  <td class="content">
-    <span class="moduleTitle">6. Active Directory Migration</span>
-    <ul>
-      <li><strong>Design:</strong> Target OU/GPO and namespace plan; trust and topology review.</li>
-      <li><strong>Build:</strong> Hardened DCs, schema validated in lab; FSMO transfer with health gates.</li>
-      <li><strong>Services:</strong> AD-integrated DNS/DHCP cutover.</li>
-      <li><strong>Policy & endpoints:</strong> Central Store, scoped GPOs.</li>
-      <li><strong>Outcome:</strong> Consolidated domains, zero downtime, cleaner GPO posture.</li>
-    </ul>
-  </td>
-</tr>
-
-
-
-
-
-</tbody>
-</table>
-
-
-
-</tbody></table></td></tr>
-</tbody></table>
-    <br><br>
-    <span class="gray">------------------------------------------------</span><br>
-    
- <br>
-&nbsp;Completed in 0.01s<br>
-  <br>
-</div>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://www.mattboldt.com/demos/typed-js/js/typed.custom.js'></script>
-<script>
-$(function () {
-  var data = [
-  {
-    action: 'type',
-    strings: ["cd /home/averyhughes/resume/^200"],
-    output: ' ',
-    postDelay: 2 },
-
-  {
-    action: 'type',
-    strings: ['cat resume.rtf^400'],
-    output: $('.mimik-run-output').html()}];
-  runScripts(data, 0);
-});
-
-function runScripts(data, pos) {
-  var prompt = $('.prompt'),
-  script = data[pos];
-  if (script.clear === true) {
-    $('.history').html('');
-  }
-  switch (script.action) {
-    case 'type':
-      prompt.removeData();
-      $('.typed-cursor').text('');
-      prompt.typed({
-        strings: script.strings,
-        typeSpeed: -50,
-        startDelay: 0,
-        callback: function () {
-          var history = $('.history').html();
-          history = history ? [history] : [];
-          history.push('$ ' + prompt.text());
-          if (script.output) {
-            history.push(script.output);
-            prompt.html('');
-            $('.history').html(history.join('<br>'));
-          }
-          $('section.terminal').scrollTop(0);
-          pos++;
-          if (pos < data.length) {
-            setTimeout(function () {
-              runScripts(data, pos);
-            }, script.postDelay || 1);
-          }
-        } });
-
-      break;
-    case 'view':
-      break;}
-}
-</script>
-</body>
-
+  <script type="module" src="./src/styles.ts"></script>
+  <script type="module" src="./src/main.ts"></script>
 </html>
