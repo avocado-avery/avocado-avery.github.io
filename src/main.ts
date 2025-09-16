@@ -251,24 +251,14 @@ function commandHandler(input: string) {
       break;
 
     case "reboot":
-      if (bareMode) {
-        writeLines(["", "<br>"]);
+      if (!isRoot) {
+        writeLines(["Permission not granted.", "<br>"]);
         break;
       }
-      if (isRoot) {
+      if (isRoot || bareMode) {
         writeLines(["Rebooting...", "<br>"]);
         setTimeout(() => location.reload(), 1000);
-      } else {
-        writeLines(["Permission not granted.", "<br>"]);
       }
-      break;
-
-    case "banner":
-      if (bareMode) {
-        writeLines(["WebShell v1.0.0", "<br>"]);
-        break;
-      }
-      writeLines(BANNER);
       break;
 
     case "help":
