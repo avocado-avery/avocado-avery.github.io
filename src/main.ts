@@ -294,6 +294,14 @@ function commandHandler(input: string) {
       setTimeout(() => window.open(REPO_LINK, "_blank"), 500);
       break;
 
+    case "banner":
+      if (bareMode) {
+        writeLines(["...", "<br>"]);
+        break;
+      }
+      writeLines(BANNER);
+      break;
+
     case "rm -rf":
       if (bareMode) {
         writeLines(["don't try again.", "<br>"]);
