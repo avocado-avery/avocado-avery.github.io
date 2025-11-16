@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
-import { copyFileSync, mkdirSync } from "fs";
 import { resolve } from "path";
+import { copyFileSync, mkdirSync, existsSync } from "fs";
 
 export default defineConfig({
   base: "/",
@@ -16,4 +16,19 @@ export default defineConfig({
     },
   },
   publicDir: "res",
+  plugins: [
+    {
+      name: 'copy-resume',
+      closeBundle() {
+        const resumeDir = resolve(__dirname, 'dist/resume');
+        if (!existsSync(resumeDir)) {
+          mkdirSync(resumeDir, { recursive: true });
+        }
+        copyFileSync(
+          resolve(__dirname, 'resume/resume.pdf'),
+          resolve(__dirname, 'dist/resume/resume.pdf')
+        );
+      }
+    }
+  ]
 });
