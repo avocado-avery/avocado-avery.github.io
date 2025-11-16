@@ -1,0 +1,14 @@
+<script>
+    const redirects = {
+        "github": "https://github.com/avocado-avery",
+        "linkedin": "https://www.linkedin.com/in/avery-hughes06/",
+        "resume": "https://itsavery.me/r/resume.pdf"
+    };
+
+    const path = window.location.pathname.replace("/r/", "");
+    if (redirects[path]) {
+        window.location.href = redirects[path];
+    } else {
+        window.location.href = "/";
+    }
+</script>
