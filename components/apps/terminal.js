@@ -97,7 +97,6 @@ export class Terminal extends Component {
 
   reStartTerminal = () => {
     clearInterval(this.cursor);
-    $('#terminal-body').empty();
     this.terminal_rows = 1;
     this.setState({ terminal: [] }, () => {
       this.appendTerminalRow();
@@ -272,7 +271,9 @@ export class Terminal extends Component {
       const commands = raw.split(';').map(s => s.trim()).filter(Boolean);
       let results = [];
       for (const cmd of commands) {
-        results.push(this.processCommand(cmd));
+        const result = this.processCommand(cmd);
+        if (result === '__CLEAR__' || result === '__EXIT__') return;
+        results.push(result);
       }
       const combined = results.filter(Boolean).join('\n');
       if (combined) document.getElementById(`row-result-${rowId}`).innerHTML = combined;
@@ -286,6 +287,7 @@ export class Terminal extends Component {
       let results = [];
       for (const cmd of commands) {
         const result = this.processCommand(cmd);
+        if (result === '__CLEAR__' || result === '__EXIT__') return;
         results.push(result);
         if (result && result.includes('error') || result && result.includes('not found')) break;
       }
