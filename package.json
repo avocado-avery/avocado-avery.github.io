@@ -1,22 +1,29 @@
 {
-  "name": "avocado-avery.github.io",
-  "version": "1.0.0",
+  "name": "avery-hughes-portfolio",
+  "version": "2.0.0",
   "private": true,
-  "type": "module",
+  "homepage": "https://averyhughes.dev/",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
-    "test": "exit 0"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export"
   },
-  "devDependencies": {
-    "@types/js-yaml": "^4.0.9",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.0"
+  "engines": {
+    "node": ">=16.x"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0"
+    "@emailjs/browser": "^3.10.0",
+    "autoprefixer": "^10.4.13",
+    "expr-eval": "^2.0.2",
+    "jquery": "^3.6.3",
+    "next": "^13.1.2",
+    "postcss": "^8.4.21",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-draggable": "^4.4.5",
+    "react-onclickoutside": "^6.12.2",
+    "tailwindcss": "^3.2.4"
   }
 }
-

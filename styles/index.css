@@ -1,0 +1,226 @@
+body {
+    font-family: 'JetBrains Mono', 'Source Code Pro', monospace;
+    font-display: swap;
+    background: #0c0c0c;
+    color: #c5c8c6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Top NavBar styling */
+
+.top-arrow-up {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #242424;
+}
+
+.arrow-custom {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #c5c8c6;
+}
+
+.animateShow {
+    animation: transformDownShow 150ms 1 forwards;
+}
+
+@keyframes transformDownShow {
+    0% {
+        transform: translateY(-4px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+input[type=range].ubuntu-slider {
+    outline: none;
+    -webkit-appearance: none;
+    background: linear-gradient(to right, rgba(120, 120, 120, 0.2) 0%, rgba(120, 120, 120, 0.2) 100%);
+    background-position: center;
+    background-size: 99% 2px;
+    background-repeat: no-repeat;
+    height: 4px;
+    border-radius: 0;
+}
+
+input[type=range].ubuntu-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #1793D1;
+    border: none;
+    border-radius: 0;
+    width: 10px;
+    height: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Window styling */
+.arrow-custom-up {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #c5c8c6;
+    width: 0;
+}
+
+.arrow-custom-down {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #c5c8c6;
+    width: 0;
+}
+
+.arrow-custom-left {
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
+    border-right: 5px solid #c5c8c6;
+    width: 0;
+}
+
+.arrow-custom-right {
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #c5c8c6;
+    width: 0;
+}
+
+.window-y-border {
+    height: calc(100% - 10px);
+    width: calc(100% + 10px);
+    cursor: e-resize;
+}
+
+.window-x-border {
+    height: calc(100% + 10px);
+    width: calc(100% - 10px);
+    cursor: n-resize;
+}
+
+.notFocused {
+    filter: brightness(85%);
+}
+
+.root,
+#root,
+#docs-root {
+    --window-transform-x: 0px;
+    --window-transform-y: 0px;
+}
+
+.window-shadow {
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.5);
+}
+
+.closed-window {
+    animation: closeWindow 150ms 1 forwards;
+}
+
+@keyframes closeWindow {
+    0% {
+        opacity: 1;
+        transform: translate(var(--window-transform-x), var(--window-transform-y)) scale(1);
+        visibility: visible;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(var(--window-transform-x), var(--window-transform-y)) scale(0.95);
+        visibility: hidden;
+    }
+}
+
+.windowMainScreen::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.windowMainScreen::-webkit-scrollbar {
+    width: 4px;
+    background-color: transparent;
+}
+
+.windowMainScreen::-webkit-scrollbar-thumb {
+    background-color: #333333;
+    border-radius: 0;
+}
+
+/* SideBarApp Scale image onClick */
+.scalable-app-icon {
+    visibility: hidden;
+}
+
+.scalable-app-icon.scale {
+    animation: scaleAppImage 300ms 1 forwards;
+}
+
+@keyframes scaleAppImage {
+    from {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Context Menu */
+.context-menu-bg {
+    background-color: #141414;
+    backdrop-filter: blur(12px);
+}
+
+.emoji-list>li {
+    padding-left: 10px;
+}
+
+.list-pc {
+    list-style: ">";
+}
+
+.list-building {
+    list-style: "$";
+}
+
+.list-time {
+    list-style: "~";
+}
+
+.list-star {
+    list-style: "*";
+}
+
+.list-arrow {
+    list-style: ">";
+}
+
+/* Arch-specific overrides */
+::selection {
+    background: #1793D1;
+    color: #0c0c0c;
+}
+
+::-moz-selection {
+    background: #1793D1;
+    color: #0c0c0c;
+}
+
+/* Minimal scrollbar for the whole app */
+*::-webkit-scrollbar {
+    width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 0;
+}
