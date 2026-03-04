@@ -33,7 +33,7 @@ Certifications: CompTIA Security+ (in progress), NCL Certificates`
       },
       "contact.txt": {
         type: "file",
-        content: `Email:    avery@averyhughes.dev
+        content: `Email:    avery.hughes@itcw.org
 LinkedIn: linkedin.com/in/avery-hughes06
 GitHub:   github.com/avocado-avery
 HackTheBox: app.hackthebox.com/users/2071893`

@@ -7,7 +7,7 @@ import { FILESYSTEM, resolvePath, findInFilesystem, getTree, normalizePath, shor
 const COMMANDS = [
   "help", "clear", "ls", "cd", "pwd", "cat", "echo", "whoami",
   "uname", "date", "history", "mkdir", "touch", "rm", "grep", "find",
-  "tree", "neofetch", "curl", "wget", "ping", "ssh", "systemctl",
+  "tree", "fastfetch", "curl", "wget", "ping", "ssh", "systemctl",
   "service", "ps", "top", "htop", "df", "du", "free", "uptime",
   "w", "who", "last", "man", "nano", "vim", "head", "tail", "less",
   "more", "wc", "sort", "uniq", "diff", "chmod", "chown", "sudo",
@@ -491,7 +491,7 @@ export class Terminal extends Component {
       case 'hostname': return 'archlinux';
       case 'hostnamectl': return this.cmdHostnamectl();
       case 'timedatectl': return this.cmdTimedatectl();
-      case 'neofetch': return this.cmdNeofetch();
+      case 'fastfetch': return this.cmdNeofetch();
       case 'lscpu': return this.cmdLscpu();
       case 'lsblk': return this.cmdLsblk();
       case 'lsusb': return this.cmdLsusb();
@@ -698,7 +698,7 @@ export class Terminal extends Component {
     lines.push('');
     lines.push('  ' + C.bold(C.green('Portfolio Commands:')));
     lines.push('     ' + C.cyan('about-avery') + '  - Open about me');
-    lines.push('     ' + C.cyan('neofetch') + '     - System info');
+    lines.push('     ' + C.cyan('fastfetch') + '     - System info');
     lines.push('     ' + C.cyan('whoami -v') + '    - Detailed profile');
     lines.push('     ' + C.cyan('sendmsg') + '      - Send a message');
     lines.push('     ' + C.cyan('open <app>') + '   - Open an app');
@@ -1004,7 +1004,7 @@ export class Terminal extends Component {
       C.cyan('         ./ooosssso++osssssso+`') + '        ' + C.yellow('Specialty') + ': Unix & OffSec',
       C.cyan('        .oossssso-````/ossssss+`') + '       ' + C.yellow('Skills') + ': Python, Bash, Docker',
       C.cyan('       -osssssso.      :ssssssso.') + '      ' + C.yellow('Achievements') + ': CCDC National, CCIS Author',
-      C.cyan('      :osssssss/        osssso+++.') + '     ' + C.yellow('Email') + ': avery@averyhughes.dev',
+      C.cyan('      :osssssss/        osssso+++.') + '     ' + C.yellow('Email') + ': avery.hughes@itcw.com',
       C.cyan('     /ossssssss/        +ssssooo/-') + '     ',
       C.cyan('   `/ossssso+/:-        -:/+osssso+-') + '   ' + c('███', '#cc3333') + c('███', '#4E9A06') + c('███', '#cc6633') + c('███', '#1793D1') + c('███', '#5c2d91') + c('███', '#5fafaf'),
       C.cyan('  `+sso+:-`                 `.-/+oso:') + '  ',
@@ -1032,7 +1032,7 @@ export class Terminal extends Component {
       '   • Ball Venture Grant Recipient',
       '   • Dean\'s List',
       '',
-      C.cyan('Contact:') + ' avery@averyhughes.dev',
+      C.cyan('Contact:') + ' avery.hughes@itcw.org',
       C.cyan('Links:') + '   linkedin.com/in/avery-hughes06 | github.com/avocado-avery',
     ].join('\n');
   }
@@ -1537,7 +1537,7 @@ export class Terminal extends Component {
     if (args[0] === 'log') {
       return [
         C.yellow('commit a7f8e9d2c1b3f4e5a6c7d8e9f0a1b2c3d4e5f6a7'),
-        'Author: Avery Hughes <avery@averyhughes.dev>',
+        'Author: Avery Hughes <avery.hughes@itcw.org>',
         'Date:   ' + new Date().toDateString(),
         '',
         '    Updated portfolio with Arch Linux theme',
@@ -1696,7 +1696,7 @@ export class Terminal extends Component {
       "Avery can harden your Linux boxes while automating with Python. What more do you need?",
       "Red team skills + Blue team mindset = Avery Hughes",
       "If you're reading this, Avery's portfolio already impressed you. Imagine him on your team!",
-      "avery@averyhughes.dev — The email address that could solve your security problems.",
+      "avery.hughes@itcw.org — The email address that could solve your security problems.",
       "Defense wins championships. Avery wins cybersecurity competitions.",
     ];
     return fortunes[Math.floor(Math.random() * fortunes.length)];
