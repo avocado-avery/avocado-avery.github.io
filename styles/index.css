@@ -7,18 +7,241 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Top NavBar styling */
+/* ═══════════════════════════════════════
+   Waybar - Floating top bar
+   ═══════════════════════════════════════ */
 
-.top-arrow-up {
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid #242424;
+.waybar {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    right: 8px;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 50;
+    pointer-events: none;
 }
 
-.arrow-custom {
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 5px solid #c5c8c6;
+.waybar > * {
+    pointer-events: auto;
+}
+
+.waybar-module {
+    background: rgba(17, 17, 17, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 0 12px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 200ms ease;
+}
+
+.waybar-module:hover {
+    background: rgba(24, 24, 24, 0.9);
+}
+
+/* ═══════════════════════════════════════
+   Hyprland Windows
+   ═══════════════════════════════════════ */
+
+.main-window {
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    overflow: hidden;
+}
+
+.main-window.z-30 {
+    border-color: rgba(23, 147, 209, 0.3) !important;
+}
+
+.window-shadow {
+    box-shadow:
+        0 4px 24px 0 rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.main-window.z-30 .window-shadow,
+.z-30.window-shadow {
+    box-shadow:
+        0 4px 32px 0 rgba(23, 147, 209, 0.12),
+        0 4px 24px 0 rgba(0, 0, 0, 0.45);
+}
+
+.notFocused {
+    filter: brightness(88%);
+}
+
+/* Window close animation */
+.closed-window {
+    animation: closeWindow 200ms 1 forwards;
+}
+
+@keyframes closeWindow {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Window open animation */
+.opened-window {
+    animation: openWindow 200ms 1 forwards;
+}
+
+@keyframes openWindow {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+/* ═══════════════════════════════════════
+   Hyprland Dock (Sidebar)
+   ═══════════════════════════════════════ */
+
+.hypr-dock {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(17, 17, 17, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    padding: 6px 4px;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    transition: transform 200ms ease, opacity 200ms ease;
+}
+
+.hypr-dock.hidden {
+    transform: translateY(-50%) translateX(-100%);
+    opacity: 0;
+}
+
+.hypr-dock-app {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: background 150ms ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.hypr-dock-app:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.hypr-dock-app.active {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.hypr-dock-indicator {
+    position: absolute;
+    left: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 12px;
+    background: #1793D1;
+    border-radius: 0 3px 3px 0;
+}
+
+.hypr-dock-separator {
+    width: 24px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 4px 0;
+}
+
+.window-titlebar {
+    position: relative;
+    z-index: 10;
+}
+
+.window-btn {
+    width: 28px;
+    height: 24px;
+    color: #888;
+    background-color: transparent;
+    transition: background-color 150ms ease, color 150ms ease;
+    border-radius: 0;
+}
+
+.window-btn:hover { background-color: rgba(255, 255, 255, 0.1); color: #fff; }
+.window-btn-close:hover { background-color: #e04040; color: #fff; }
+
+/* ═══════════════════════════════════════
+   Scrollbars
+   ═══════════════════════════════════════ */
+
+.windowMainScreen::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.windowMainScreen::-webkit-scrollbar {
+    width: 4px;
+    background-color: transparent;
+}
+
+.windowMainScreen::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar {
+    width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+}
+
+/* ═══════════════════════════════════════
+   Context Menu
+   ═══════════════════════════════════════ */
+
+.context-menu-bg {
+    background-color: rgba(20, 20, 20, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* ═══════════════════════════════════════
+   Status card dropdown
+   ═══════════════════════════════════════ */
+
+.status-card {
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .animateShow {
@@ -27,39 +250,31 @@ body {
 
 @keyframes transformDownShow {
     0% {
-        transform: translateY(-4px);
+        transform: translateY(-6px);
         opacity: 0;
     }
-
     100% {
         transform: translateY(0px);
         opacity: 1;
     }
 }
 
-input[type=range].ubuntu-slider {
-    outline: none;
-    -webkit-appearance: none;
-    background: linear-gradient(to right, rgba(120, 120, 120, 0.2) 0%, rgba(120, 120, 120, 0.2) 100%);
-    background-position: center;
-    background-size: 99% 2px;
-    background-repeat: no-repeat;
-    height: 4px;
-    border-radius: 0;
+/* ═══════════════════════════════════════
+   Arrows
+   ═══════════════════════════════════════ */
+
+.top-arrow-up {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid rgba(255, 255, 255, 0.06);
 }
 
-input[type=range].ubuntu-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    background-color: #1793D1;
-    border: none;
-    border-radius: 0;
-    width: 10px;
-    height: 10px;
-    position: relative;
-    cursor: pointer;
+.arrow-custom {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #c5c8c6;
 }
 
-/* Window styling */
 .arrow-custom-up {
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
@@ -88,66 +303,36 @@ input[type=range].ubuntu-slider::-webkit-slider-thumb {
     width: 0;
 }
 
-.window-y-border {
-    height: calc(100% - 10px);
-    width: calc(100% + 10px);
-    cursor: e-resize;
+/* ═══════════════════════════════════════
+   Ubuntu slider
+   ═══════════════════════════════════════ */
+
+input[type=range].ubuntu-slider {
+    outline: none;
+    -webkit-appearance: none;
+    background: linear-gradient(to right, rgba(120, 120, 120, 0.2) 0%, rgba(120, 120, 120, 0.2) 100%);
+    background-position: center;
+    background-size: 99% 2px;
+    background-repeat: no-repeat;
+    height: 4px;
+    border-radius: 2px;
 }
 
-.window-x-border {
-    height: calc(100% + 10px);
-    width: calc(100% - 10px);
-    cursor: n-resize;
+input[type=range].ubuntu-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #1793D1;
+    border: none;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    position: relative;
+    cursor: pointer;
 }
 
-.notFocused {
-    filter: brightness(85%);
-}
+/* ═══════════════════════════════════════
+   SideBarApp scale animation
+   ═══════════════════════════════════════ */
 
-.root,
-#root,
-#docs-root {
-    --window-transform-x: 0px;
-    --window-transform-y: 0px;
-}
-
-.window-shadow {
-    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.5);
-}
-
-.closed-window {
-    animation: closeWindow 150ms 1 forwards;
-}
-
-@keyframes closeWindow {
-    0% {
-        opacity: 1;
-        transform: translate(var(--window-transform-x), var(--window-transform-y)) scale(1);
-        visibility: visible;
-    }
-
-    100% {
-        opacity: 0;
-        transform: translate(var(--window-transform-x), var(--window-transform-y)) scale(0.95);
-        visibility: hidden;
-    }
-}
-
-.windowMainScreen::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-.windowMainScreen::-webkit-scrollbar {
-    width: 4px;
-    background-color: transparent;
-}
-
-.windowMainScreen::-webkit-scrollbar-thumb {
-    background-color: #333333;
-    border-radius: 0;
-}
-
-/* SideBarApp Scale image onClick */
 .scalable-app-icon {
     visibility: hidden;
 }
@@ -162,7 +347,6 @@ input[type=range].ubuntu-slider::-webkit-slider-thumb {
         opacity: 1;
         visibility: visible;
     }
-
     to {
         transform: translate(-50%, -50%) scale(2.5);
         opacity: 0;
@@ -170,37 +354,10 @@ input[type=range].ubuntu-slider::-webkit-slider-thumb {
     }
 }
 
-/* Context Menu */
-.context-menu-bg {
-    background-color: #141414;
-    backdrop-filter: blur(12px);
-}
+/* ═══════════════════════════════════════
+   Selection
+   ═══════════════════════════════════════ */
 
-.emoji-list>li {
-    padding-left: 10px;
-}
-
-.list-pc {
-    list-style: ">";
-}
-
-.list-building {
-    list-style: "$";
-}
-
-.list-time {
-    list-style: "~";
-}
-
-.list-star {
-    list-style: "*";
-}
-
-.list-arrow {
-    list-style: ">";
-}
-
-/* Arch-specific overrides */
 ::selection {
     background: #1793D1;
     color: #0c0c0c;
@@ -211,16 +368,16 @@ input[type=range].ubuntu-slider::-webkit-slider-thumb {
     color: #0c0c0c;
 }
 
-/* Minimal scrollbar for the whole app */
-*::-webkit-scrollbar {
-    width: 4px;
+/* ═══════════════════════════════════════
+   List markers
+   ═══════════════════════════════════════ */
+
+.emoji-list>li {
+    padding-left: 10px;
 }
 
-*::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 0;
-}
+.list-pc { list-style: ">"; }
+.list-building { list-style: "$"; }
+.list-time { list-style: "~"; }
+.list-star { list-style: "*"; }
+.list-arrow { list-style: ">"; }

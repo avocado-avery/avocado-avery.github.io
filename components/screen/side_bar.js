@@ -26,7 +26,7 @@ export default function SideBar(props) {
 
     return (
         <>
-            <div className={(props.hide ? " -translate-x-full " : "") + " absolute transform duration-200 select-none z-40 left-0 top-0 h-full pt-7 w-auto flex flex-col justify-start items-center"} style={{ backgroundColor: 'rgba(12, 12, 12, 0.85)', backdropFilter: 'blur(8px)', borderRight: '1px solid #1a1a1a' }}>
+            <div className={"hypr-dock" + (props.hide ? " hidden" : "")} >
                 {
                     (
                         Object.keys(props.closed_windows).length !== 0
@@ -34,6 +34,7 @@ export default function SideBar(props) {
                             : null
                     )
                 }
+                <div className="hypr-dock-separator" />
                 <AllApps showApps={props.showAllApps} />
             </div>
             <div onMouseEnter={showSideBar} onMouseLeave={hideSideBar} className={"w-1 h-full absolute top-0 left-0 bg-transparent z-50"}></div>
@@ -47,23 +48,24 @@ export function AllApps(props) {
 
     return (
         <div
-            className="w-10 h-10 m-1 hover:bg-white hover:bg-opacity-5 flex items-center justify-center"
-            style={{ marginTop: 'auto' }}
-            onMouseEnter={() => {
-                setTitle(true);
-            }}
-            onMouseLeave={() => {
-                setTitle(false);
-            }}
+            className="hypr-dock-app"
+            onMouseEnter={() => { setTitle(true); }}
+            onMouseLeave={() => { setTitle(false); }}
             onClick={props.showApps}
         >
             <div className="relative">
-                <img width="28px" height="28px" className="w-7" src="./themes/Yaru/system/view-app-grid-symbolic.svg" alt="View applications" style={{ opacity: 0.6 }} />
+                <img width="24px" height="24px" className="w-6" src="./themes/Yaru/system/view-app-grid-symbolic.svg" alt="View applications" style={{ opacity: 0.5 }} />
                 <div
                     className={
                         (title ? " visible " : " invisible ") +
-                        " w-max py-0.5 px-1.5 absolute top-1 left-full ml-5 text-ubt-grey text-xs font-mono bg-ub-cool-grey border-gray-700 border border-opacity-40"
+                        " w-max py-1 px-2 absolute top-1/2 -translate-y-1/2 left-full ml-4 text-ubt-grey text-xs font-mono"
                     }
+                    style={{
+                        backgroundColor: 'rgba(17, 17, 17, 0.92)',
+                        backdropFilter: 'blur(12px)',
+                        border: '1px solid rgba(255, 255, 255, 0.06)',
+                        borderRadius: '8px',
+                    }}
                 >
                     Show Applications
                 </div>

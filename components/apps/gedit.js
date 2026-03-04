@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-import emailjs from '@emailjs/browser';
-
 export class Gedit extends Component {
 
     constructor() {
         super();
         this.state = {
             sending: false,
+            sent: false,
+            error: false,
         }
-    }
-
-    componentDidMount() {
-        emailjs.init(process.env.NEXT_PUBLIC_USER_ID);
     }
 
     sendMessage = async () => {
@@ -40,23 +36,34 @@ export class Gedit extends Component {
         }
         if (error) return;
 
-        this.setState({ sending: true });
+        this.setState({ sending: true, error: false });
 
-        const serviceID = process.env.NEXT_PUBLIC_SERVICE_ID;
-        const templateID = process.env.NEXT_PUBLIC_TEMPLATE_ID;
-        const templateParams = {
-            'name': name,
-            'subject': subject,
-            'message': message,
+        try {
+            const response = await fetch("https://formspree.io/f/xlgwqjzd", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: name,
+                    subject: subject,
+                    message: message,
+                }),
+            });
+
+            if (response.ok) {
+                this.setState({ sending: false, sent: true });
+                setTimeout(() => {
+                    $("#close-gedit").trigger("click");
+                }, 1500);
+            } else {
+                this.setState({ sending: false, error: true });
+            }
+        } catch (err) {
+            this.setState({ sending: false, error: true });
         }
-
-        emailjs.send(serviceID, templateID, templateParams).then(() => {
-            this.setState({ sending: false });
-            $("#close-gedit").trigger("click");
-        }).catch(() => {
-            this.setState({ sending: false });
-            $("#close-gedit").trigger("click");
-        })
     }
 
     render() {
@@ -64,7 +71,9 @@ export class Gedit extends Component {
             <div className="w-full h-full relative flex flex-col text-ubt-grey select-none" style={{ backgroundColor: '#0c0c0c' }}>
                 <div className="flex items-center justify-between w-full text-xs font-mono" style={{ backgroundColor: '#141414', borderBottom: '1px solid #242424', padding: '6px 12px' }}>
                     <span className="font-bold" style={{ color: '#7c7c7c' }}>Send a Message</span>
-                    <div className="flex">
+                    <div className="flex gap-2">
+                        {this.state.sent && <span className="text-ubt-green py-0.5">Sent!</span>}
+                        {this.state.error && <span style={{ color: '#cc3333' }} className="py-0.5">Failed to send</span>}
                         <div onClick={this.sendMessage} className="px-3 py-0.5 cursor-pointer hover:bg-white hover:bg-opacity-5 font-mono text-ubt-blue" style={{ border: '1px solid #242424' }}>Send</div>
                     </div>
                 </div>

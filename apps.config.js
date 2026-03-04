@@ -4,10 +4,22 @@ import { displaySettings } from './components/apps/settings';
 import { displayFirefox } from './components/apps/chrome';
 import { displayTrash } from './components/apps/trash';
 import { displayGedit } from './components/apps/gedit';
-import { displayAboutAvery } from './components/apps/vivek';
+import { displayAboutAvery } from './components/apps/avery';
 import { displayTerminalCalc } from './components/apps/calc';
+import { displayResume } from './components/apps/resume';
+import { displayWelcome } from './components/apps/welcome';
 
 const apps = [
+    {
+        id: "welcome",
+        title: "About Me — Firefox",
+        icon: './themes/Yaru/apps/firefox.png',
+        disabled: false,
+        favourite: false,
+        desktop_shortcut: false,
+        screen: displayWelcome,
+        startup: true,
+    },
     {
         id: "firefox",
         title: "Firefox",
@@ -25,6 +37,15 @@ const apps = [
         favourite: true,
         desktop_shortcut: false,
         screen: displayTerminalCalc,
+    },
+    {
+        id: "resume",
+        title: "Resume",
+        icon: './themes/Yaru/apps/resume.png',
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: true,
+        screen: displayResume,
     },
     {
         id: "about-avery",

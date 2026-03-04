@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Draggable from 'react-draggable';
 import Settings from '../apps/settings';
 
 import { displayTerminal } from '../apps/terminal'
@@ -7,232 +6,102 @@ import { displayTerminal } from '../apps/terminal'
 export class Window extends Component {
     constructor() {
         super();
-        this.id = null;
-        this.startX = 60;
-        this.startY = 10;
         this.state = {
-            cursorType: "cursor-default",
-            width: 60,
-            height: 85,
             closed: false,
-            maximized: false,
-            parentSize: {
-                height: 100,
-                width: 100
-            }
-        }
-    }
-
-    componentDidMount() {
-        this.id = this.props.id;
-        this.setDefaultWindowDimenstion();
-
-        // on window resize, resize boundary
-        window.addEventListener('resize', this.resizeBoundries);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.resizeBoundries);
-    }
-
-    setDefaultWindowDimenstion = () => {
-        if (window.innerWidth < 640) {
-            this.setState({ height: 60, width: 85 }, this.resizeBoundries);
-        }
-        else {
-            this.setState({ height: 85, width: 60 }, this.resizeBoundries);
-        }
-    }
-
-    resizeBoundries = () => {
-        this.setState({
-            parentSize: {
-                height: window.innerHeight
-                    - (window.innerHeight * (this.state.height / 100.0))
-                    - 28
-                ,
-                width: window.innerWidth
-                    - (window.innerWidth * (this.state.width / 100.0))
-            }
-        });
-    }
-
-    changeCursorToMove = () => {
-        this.focusWindow();
-        if (this.state.maximized) {
-            this.restoreWindow();
-        }
-        this.setState({ cursorType: "cursor-move" })
-    }
-
-    changeCursorToDefault = () => {
-        this.setState({ cursorType: "cursor-default" })
-    }
-
-    handleVerticleResize = () => {
-        this.setState({ height: this.state.height + 0.1 }, this.resizeBoundries);
-    }
-
-    handleHorizontalResize = () => {
-        this.setState({ width: this.state.width + 0.1 }, this.resizeBoundries);
-    }
-
-    setWinowsPosition = () => {
-        var r = document.querySelector("#" + this.id);
-        var rect = r.getBoundingClientRect();
-        r.style.setProperty('--window-transform-x', rect.x.toFixed(1).toString() + "px");
-        r.style.setProperty('--window-transform-y', (rect.y.toFixed(1) - 32).toString() + "px");
-    }
-
-    checkOverlap = () => {
-        var r = document.querySelector("#" + this.id);
-        var rect = r.getBoundingClientRect();
-        if (rect.x.toFixed(1) < 50) {
-            this.props.hideSideBar(this.id, true);
-        }
-        else {
-            this.props.hideSideBar(this.id, false);
         }
     }
 
     focusWindow = () => {
-        this.props.focus(this.id);
+        this.props.focus(this.props.id);
     }
 
     minimizeWindow = () => {
-        let posx = -310;
-        if (this.state.maximized) {
-            posx = -510;
+        const id = this.props.id;
+        var sidebarEl = document.querySelector("#sidebar-" + id);
+        if (sidebarEl) {
+            var sidebBarApp = sidebarEl.getBoundingClientRect();
+            var r = document.querySelector("#" + id);
+            if (r) r.style.transform = `translate(${-310}px,${sidebBarApp.y.toFixed(1) - 240}px) scale(0.2)`;
         }
-        this.setWinowsPosition();
-        var r = document.querySelector("#sidebar-" + this.id);
-        var sidebBarApp = r.getBoundingClientRect();
-
-        r = document.querySelector("#" + this.id);
-        r.style.transform = `translate(${posx}px,${sidebBarApp.y.toFixed(1) - 240}px) scale(0.2)`;
-        this.props.hasMinimised(this.id);
-    }
-
-    restoreWindow = () => {
-        var r = document.querySelector("#" + this.id);
-        this.setDefaultWindowDimenstion();
-        let posx = r.style.getPropertyValue("--window-transform-x");
-        let posy = r.style.getPropertyValue("--window-transform-y");
-
-        r.style.transform = `translate(${posx},${posy})`;
-        setTimeout(() => {
-            this.setState({ maximized: false });
-            this.checkOverlap();
-        }, 300);
+        this.props.hasMinimised(id);
     }
 
     maximizeWindow = () => {
-        if (this.state.maximized) {
-            this.restoreWindow();
-        }
-        else {
-            this.focusWindow();
-            var r = document.querySelector("#" + this.id);
-            this.setWinowsPosition();
-            r.style.transform = `translate(-1pt,-2pt)`;
-            this.setState({ maximized: true, height: 96.3, width: 100.2 });
-            this.props.hideSideBar(this.id, true);
-        }
+        this.props.toggleMaximize(this.props.id);
     }
 
     closeWindow = () => {
-        this.setWinowsPosition();
         this.setState({ closed: true }, () => {
-            this.props.hideSideBar(this.id, false);
+            this.props.hideSideBar(this.props.id, false);
             setTimeout(() => {
-                this.props.closed(this.id)
-            }, 300)
+                this.props.closed(this.props.id)
+            }, 200)
         });
     }
 
     render() {
+        const { tilePosition, minimized, isFocused, maximized } = this.props;
+
+        // Use tile position for sizing and placement (fixed positioning for precise control)
+        const style = tilePosition ? {
+            position: 'fixed',
+            left: `${tilePosition.x}px`,
+            top: `${tilePosition.y}px`,
+            width: `${tilePosition.w}px`,
+            height: `${tilePosition.h}px`,
+            transition: 'left 200ms ease, top 200ms ease, width 200ms ease, height 200ms ease',
+        } : {
+            position: 'fixed',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '60%',
+            height: '85%',
+        };
+
         return (
-            <Draggable
-                axis="both"
-                handle=".bg-ub-window-title"
-                grid={[1, 1]}
-                scale={1}
-                onStart={this.changeCursorToMove}
-                onStop={this.changeCursorToDefault}
-                onDrag={this.checkOverlap}
-                allowAnyClick={false}
-                defaultPosition={{ x: this.startX, y: this.startY }}
-                bounds={{ left: 0, top: 0, right: this.state.parentSize.width, bottom: this.state.parentSize.height }}
+            <div
+                style={style}
+                className={(this.state.closed ? " closed-window " : "") + (minimized ? " opacity-0 invisible duration-200 " : "") + (maximized ? " z-40 " : (isFocused ? " z-30 " : " z-20 notFocused")) + " opened-window overflow-hidden main-window window-shadow flex flex-col"}
+                id={this.props.id}
+                onClick={this.focusWindow}
             >
-                <div style={{ width: `${this.state.width}%`, height: `${this.state.height}%` }}
-                    className={this.state.cursorType + " " + (this.state.closed ? " closed-window " : "") + (this.state.maximized ? " duration-300 " : "") + (this.props.minimized ? " opacity-0 invisible duration-200 " : "") + (this.props.isFocused ? " z-30 " : " z-20 notFocused") + " opened-window overflow-hidden min-w-1/4 min-h-1/4 main-window absolute window-shadow border border-gray-800 border-t-0 flex flex-col"}
-                    id={this.id}
-                >
-                    <WindowYBorder resize={this.handleHorizontalResize} />
-                    <WindowXBorder resize={this.handleVerticleResize} />
-                    <WindowTopBar title={this.props.title} />
-                    <WindowEditButtons minimize={this.minimizeWindow} maximize={this.maximizeWindow} isMaximised={this.state.maximized} close={this.closeWindow} id={this.id} />
-                    {(this.id === "settings"
-                        ? <Settings changeBackgroundImage={this.props.changeBackgroundImage} currBgImgName={this.props.bg_image_name} />
-                        : <WindowMainScreen screen={this.props.screen} title={this.props.title}
-                            addFolder={this.props.id === "terminal" ? this.props.addFolder : null}
-                            openApp={this.props.openApp} />)}
-                </div>
-            </Draggable >
+                <WindowTopBar title={this.props.title} id={this.props.id} minimize={this.minimizeWindow} maximize={this.maximizeWindow} close={this.closeWindow} maximized={this.props.maximized} />
+                {(this.props.id === "settings"
+                    ? <Settings changeBackgroundImage={this.props.changeBackgroundImage} currBgImgName={this.props.bg_image_name} />
+                    : <WindowMainScreen screen={this.props.screen} title={this.props.title}
+                        addFolder={this.props.id === "terminal" ? this.props.addFolder : null}
+                        openApp={this.props.openApp} />)}
+            </div>
         )
     }
 }
 
 export default Window
 
-// Window's title bar — flat, minimal, monospace
+// Window's title bar — GNOME/Linux style with right-aligned controls
 export function WindowTopBar(props) {
     return (
-        <div className="relative bg-ub-window-title py-1.5 px-3 text-ubt-grey w-full select-none" style={{ borderBottom: '1px solid #242424' }}>
-            <div className="flex justify-center text-xs font-mono tracking-wide" style={{ opacity: 0.7 }}>{props.title}</div>
-        </div>
-    )
-}
-
-// Window's Borders
-export class WindowYBorder extends Component {
-    componentDidMount() {
-        this.trpImg = new Image(0, 0);
-        this.trpImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-        this.trpImg.style.opacity = 0;
-    }
-    render() {
-        return (
-            <div className=" window-y-border border-transparent border-1 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" onDragStart={(e) => { e.dataTransfer.setDragImage(this.trpImg, 0, 0) }} onDrag={this.props.resize}>
+        <div className="window-titlebar relative py-1 px-3 w-full select-none flex items-center" style={{ backgroundColor: 'rgba(17, 17, 17, 0.95)', borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
+            <div className="flex-1 text-center text-xs font-mono tracking-wide" style={{ color: '#7c7c7c' }}>{props.title}</div>
+            <div className="flex items-center shrink-0">
+                <button tabIndex="-1" className="focus:outline-none cursor-default flex justify-center items-center window-btn window-btn-minimize" onClick={props.minimize}>
+                    <svg width="10" height="10" viewBox="0 0 10 10"><line x1="2" y1="5" x2="8" y2="5" stroke="currentColor" strokeWidth="1.2"/></svg>
+                </button>
+                <button tabIndex="-1" className="focus:outline-none cursor-default flex justify-center items-center window-btn window-btn-maximize" onClick={props.maximize}>
+                    {props.maximized ? (
+                        <svg width="10" height="10" viewBox="0 0 10 10">
+                            <rect x="0.5" y="2.5" width="6" height="6" fill="none" stroke="currentColor" strokeWidth="1.2"/>
+                            <polyline points="3,2.5 3,0.5 9.5,0.5 9.5,7 7.5,7" fill="none" stroke="currentColor" strokeWidth="1.2"/>
+                        </svg>
+                    ) : (
+                        <svg width="10" height="10" viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7" fill="none" stroke="currentColor" strokeWidth="1.2"/></svg>
+                    )}
+                </button>
+                <button tabIndex="-1" id={`close-${props.id}`} className="focus:outline-none cursor-default flex justify-center items-center window-btn window-btn-close" onClick={props.close}>
+                    <svg width="10" height="10" viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8" stroke="currentColor" strokeWidth="1.2"/><line x1="8" y1="2" x2="2" y2="8" stroke="currentColor" strokeWidth="1.2"/></svg>
+                </button>
             </div>
-        )
-    }
-}
-
-export class WindowXBorder extends Component {
-    componentDidMount() {
-        this.trpImg = new Image(0, 0);
-        this.trpImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-        this.trpImg.style.opacity = 0;
-    }
-    render() {
-        return (
-            <div className=" window-x-border border-transparent border-1 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" onDragStart={(e) => { e.dataTransfer.setDragImage(this.trpImg, 0, 0) }} onDrag={this.props.resize}>
-            </div>
-        )
-    }
-}
-
-// Window's Edit Buttons — minimal dot-style
-export function WindowEditButtons(props) {
-    return (
-        <div className="absolute select-none right-0 top-0 mt-1.5 mr-2 flex justify-center items-center gap-2">
-            <button tabIndex="-1" className="focus:outline-none cursor-default w-3 h-3 rounded-full flex justify-center items-center hover:brightness-125" style={{ backgroundColor: '#4E9A06' }} onClick={props.minimize}>
-            </button>
-            <button tabIndex="-1" className="focus:outline-none cursor-default w-3 h-3 rounded-full flex justify-center items-center hover:brightness-125" style={{ backgroundColor: '#cc6633' }} onClick={props.maximize}>
-            </button>
-            <button tabIndex="-1" id={`close-${props.id}`} className="focus:outline-none cursor-default w-3 h-3 rounded-full flex justify-center items-center hover:brightness-125" style={{ backgroundColor: '#cc3333' }} onClick={props.close}>
-            </button>
         </div>
     )
 }
@@ -252,7 +121,7 @@ export class WindowMainScreen extends Component {
     }
     render() {
         return (
-            <div className={"w-full flex-grow z-20 max-h-full overflow-y-auto windowMainScreen" + (this.state.setDarkBg ? " bg-ub-drk-abrgn " : " bg-ub-cool-grey")}>
+            <div className={"w-full flex-grow z-20 max-h-full overflow-y-auto windowMainScreen" + (this.state.setDarkBg ? " bg-ub-drk-abrgn " : " bg-ub-cool-grey")} style={{ borderRadius: '0 0 12px 12px' }}>
                 {this.props.addFolder ? displayTerminal(this.props.addFolder, this.props.openApp) : this.props.screen()}
             </div>
         )

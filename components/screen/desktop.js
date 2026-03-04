@@ -10,6 +10,44 @@ import DefaultMenu from '../context menus/default';
 import $ from 'jquery';
 
 
+// Dwindle/spiral tiling algorithm (like Hyprland/Sway)
+// Each new window splits the remaining space, alternating vertical/horizontal
+// 1 win: full area
+// 2 win: left | right
+// 3 win: left | top-right / bottom-right
+// 4 win: left | top-right / bottom-right-left | bottom-right-right
+// ...spiraling inward
+function computeFibonacciTiles(count, area) {
+    if (count === 0) return [];
+    if (count === 1) return [{ ...area }];
+
+    const gap = 4;
+    const tiles = [];
+    let { x, y, w, h } = area;
+
+    for (let i = 0; i < count; i++) {
+        if (i === count - 1) {
+            tiles.push({ x, y, w, h });
+            break;
+        }
+
+        // Alternate: even index = vertical split (left|right), odd = horizontal (top/bottom)
+        if (i % 2 === 0) {
+            const halfW = Math.floor((w - gap) / 2);
+            tiles.push({ x, y, w: halfW, h });
+            x = x + halfW + gap;
+            w = w - halfW - gap;
+        } else {
+            const halfH = Math.floor((h - gap) / 2);
+            tiles.push({ x, y, w, h: halfH });
+            y = y + halfH + gap;
+            h = h - halfH - gap;
+        }
+    }
+
+    return tiles;
+}
+
 export class Desktop extends Component {
     constructor() {
         super();
@@ -25,6 +63,7 @@ export class Desktop extends Component {
             favourite_apps: {},
             hideSideBar: false,
             minimized_windows: {},
+            maximized_windows: {},
             desktop_apps: [],
             context_menus: {
                 desktop: false,
@@ -39,10 +78,24 @@ export class Desktop extends Component {
         this.setContextListeners();
         this.setEventListeners();
         this.checkForNewFolders();
+        window.addEventListener('resize', this.handleResize);
+
+        // Auto-open startup apps
+        setTimeout(() => {
+            apps.forEach((app) => {
+                if (app.startup) this.openApp(app.id);
+            });
+        }, 500);
     }
 
     componentWillUnmount() {
         this.removeContextListeners();
+        window.removeEventListener('resize', this.handleResize);
+    }
+
+    handleResize = () => {
+        // Force re-render so tiling recalculates
+        this.forceUpdate();
     }
 
     checkForNewFolders = () => {
@@ -170,6 +223,8 @@ export class Desktop extends Component {
             }
             if (app.desktop_shortcut) desktop_apps.push(app.id);
         });
+        let maximized_windows = {};
+        apps.forEach((app) => { maximized_windows[app.id] = false; });
         this.setState({
             focused_windows,
             closed_windows,
@@ -177,6 +232,7 @@ export class Desktop extends Component {
             favourite_apps,
             overlapped_windows,
             minimized_windows,
+            maximized_windows,
             desktop_apps
         });
         this.initFavourite = { ...favourite_apps };
@@ -242,11 +298,48 @@ export class Desktop extends Component {
         return appsJsx;
     }
 
+    getTilingArea = () => {
+        if (typeof window === 'undefined') return { x: 0, y: 0, w: 1920, h: 1080 };
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const dockWidth = 56; // always account for dock in tiling mode
+        const topOffset = 40; // navbar: top 6px + height 32px = 38px + 2px gap
+        const gap = 4;
+        return {
+            x: dockWidth + gap,
+            y: topOffset,
+            w: vw - dockWidth - gap * 2,
+            h: vh - topOffset - gap,
+        };
+    }
+
     renderWindows = () => {
         let windowsJsx = [];
+
+        // Collect visible (non-minimized, non-closed) windows in app_stack order
+        const visibleApps = [];
+        const allOpenApps = [];
+        apps.forEach((app) => {
+            if (this.state.closed_windows[app.id] === false) {
+                allOpenApps.push(app);
+                if (!this.state.minimized_windows[app.id]) {
+                    visibleApps.push(app);
+                }
+            }
+        });
+
+        // Compute tile positions for visible windows
+        const area = this.getTilingArea();
+        const tiles = computeFibonacciTiles(visibleApps.length, area);
+        const tileMap = {};
+        visibleApps.forEach((app, i) => {
+            tileMap[app.id] = tiles[i];
+        });
+
         apps.forEach((app, index) => {
             if (this.state.closed_windows[app.id] === false) {
 
+                const isMaximized = this.state.maximized_windows[app.id];
                 const props = {
                     title: app.title,
                     id: app.id,
@@ -261,6 +354,9 @@ export class Desktop extends Component {
                     minimized: this.state.minimized_windows[app.id],
                     changeBackgroundImage: this.props.changeBackgroundImage,
                     bg_image_name: this.props.bg_image_name,
+                    tilePosition: isMaximized ? area : (tileMap[app.id] || null),
+                    maximized: isMaximized,
+                    toggleMaximize: this.toggleMaximize,
                 }
 
                 windowsJsx.push(
@@ -272,32 +368,11 @@ export class Desktop extends Component {
     }
 
     hideSideBar = (objId, hide) => {
-        if (hide === this.state.hideSideBar) return;
-
-        if (objId === null) {
-            if (hide === false) {
-                this.setState({ hideSideBar: false });
-            }
-            else {
-                for (const key in this.state.overlapped_windows) {
-                    if (this.state.overlapped_windows[key]) {
-                        this.setState({ hideSideBar: true });
-                        return;
-                    }  // if any window is overlapped then hide the SideBar
-                }
-            }
-            return;
+        // In tiling mode, sidebar is always visible — tiling accounts for dock width
+        // Keep the method signature for compatibility but never hide
+        if (this.state.hideSideBar) {
+            this.setState({ hideSideBar: false });
         }
-
-        if (hide === false) {
-            for (const key in this.state.overlapped_windows) {
-                if (this.state.overlapped_windows[key] && key !== objId) return; // if any window is overlapped then don't show the SideBar
-            }
-        }
-
-        let overlapped_windows = this.state.overlapped_windows;
-        overlapped_windows[objId] = hide;
-        this.setState({ hideSideBar: hide, overlapped_windows });
     }
 
     hasMinimised = (objId) => {
@@ -312,6 +387,13 @@ export class Desktop extends Component {
         this.hideSideBar(null, false);
 
         this.giveFocusToLastApp();
+    }
+
+    toggleMaximize = (objId) => {
+        let maximized_windows = { ...this.state.maximized_windows };
+        maximized_windows[objId] = !maximized_windows[objId];
+        this.setState({ maximized_windows });
+        this.focus(objId);
     }
 
     giveFocusToLastApp = () => {
@@ -344,9 +426,9 @@ export class Desktop extends Component {
             // focus this app's window
             this.focus(objId);
 
-            // set window's last position
+            // clear minimize transform so tiling takes over
             var r = document.querySelector("#" + objId);
-            r.style.transform = `translate(${r.style.getPropertyValue("--window-transform-x")},${r.style.getPropertyValue("--window-transform-y")}) scale(1)`;
+            if (r) r.style.transform = '';
 
             // tell childs that his app has been not minimised
             let minimized_windows = this.state.minimized_windows;
@@ -464,14 +546,14 @@ export class Desktop extends Component {
         }
 
         return (
-            <div className="absolute top-1/2 left-1/2 text-center text-ubt-grey font-mono text-sm transform -translate-y-1/2 -translate-x-1/2 sm:w-96 w-3/4 z-50" style={{ backgroundColor: '#141414', border: '1px solid #242424' }}>
+            <div className="absolute top-1/2 left-1/2 text-center text-ubt-grey font-mono text-sm transform -translate-y-1/2 -translate-x-1/2 sm:w-96 w-3/4 z-50" style={{ backgroundColor: 'rgba(17, 17, 17, 0.92)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: '12px', overflow: 'hidden' }}>
                 <div className="w-full flex flex-col justify-around items-start pl-6 pb-8 pt-6">
                     <span className="text-xs" style={{ color: '#7c7c7c' }}>New folder name</span>
                     <input className="outline-none mt-5 px-2 w-10/12 py-1 bg-transparent text-ubt-grey font-mono text-sm" style={{ border: '1px solid #1793D1' }} id="folder-name-input" type="text" autoComplete="off" spellCheck="false" autoFocus={true} />
                 </div>
                 <div className="flex text-xs">
-                    <div onClick={addFolder} className="w-1/2 px-4 py-2 hover:bg-white hover:bg-opacity-5 cursor-pointer text-ubt-blue" style={{ borderTop: '1px solid #242424', borderRight: '1px solid #242424' }}>Create</div>
-                    <div onClick={removeCard} className="w-1/2 px-4 py-2 hover:bg-white hover:bg-opacity-5 cursor-pointer" style={{ borderTop: '1px solid #242424' }}>Cancel</div>
+                    <div onClick={addFolder} className="w-1/2 px-4 py-2 hover:bg-white hover:bg-opacity-5 cursor-pointer text-ubt-blue" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', borderRight: '1px solid rgba(255,255,255,0.06)' }}>Create</div>
+                    <div onClick={removeCard} className="w-1/2 px-4 py-2 hover:bg-white hover:bg-opacity-5 cursor-pointer" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>Cancel</div>
                 </div>
             </div>
         );
@@ -479,7 +561,7 @@ export class Desktop extends Component {
 
     render() {
         return (
-            <div className={" h-full w-full flex flex-col items-end justify-start content-start flex-wrap-reverse pt-8 bg-transparent relative overflow-hidden overscroll-none window-parent"}>
+            <div className={" h-full w-full flex flex-col items-end justify-start content-start flex-wrap-reverse pt-11 bg-transparent relative overflow-hidden overscroll-none window-parent"}>
 
                 {/* Window Area */}
                 <div className="absolute h-full w-full bg-transparent" data-context="desktop-area">
@@ -500,6 +582,7 @@ export class Desktop extends Component {
                     focused_windows={this.state.focused_windows}
                     isMinimized={this.state.minimized_windows}
                     openAppByAppId={this.openApp} />
+
 
                 {/* Desktop Apps */}
                 {this.renderDesktopApps()}

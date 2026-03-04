@@ -13,7 +13,7 @@ export class UbuntuApp extends Component {
     render() {
         return (
             <div
-                className="p-1 m-px z-10 bg-white bg-opacity-0 hover:bg-opacity-5 focus:bg-opacity-10 focus:border-ubb-orange border border-transparent outline-none select-none w-24 h-20 flex flex-col justify-start items-center text-center text-xs font-mono text-ubt-grey relative"
+                className="p-1 m-px z-10 bg-white bg-opacity-0 hover:bg-opacity-5 focus:bg-opacity-10 focus:border-ubb-orange border border-transparent rounded-xl outline-none select-none w-24 h-20 flex flex-col justify-start items-center text-center text-xs font-mono text-ubt-grey relative"
                 id={"app-" + this.props.id}
                 onDoubleClick={this.openApp}
                 tabIndex={0}

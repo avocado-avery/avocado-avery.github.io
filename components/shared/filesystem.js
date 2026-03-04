@@ -21,15 +21,14 @@ competitions and tinkering with my homelab.`
         type: "file",
         content: `Avery Hughes - Resume
 =====================
-View full resume: open the Resume tab or visit /files/Avery-Hughes-Resume.pdf
+Open the Resume app from the dock or desktop to view the full PDF.
+Direct link: /files/Avery-Hughes-Resume.pdf
 
 Skills: Python, Bash, Solidity, FastAPI, Docker, Nginx, IPFS, Proxmox,
         ZFS/LVM, Active Directory, DNS/DHCP, LDAP, Splunk
 
 Security: Penetration Testing, Incident Response, System Hardening,
-          Offensive Security, Network Security
-
-Certifications: CompTIA Security+ (in progress), NCL Certificates`
+          Offensive Security, Network Security`
       },
       "contact.txt": {
         type: "file",
@@ -320,26 +319,6 @@ def scan_ports(target, ports):
 if __name__ == "__main__":
     common_ports = [21, 22, 80, 443, 8080, 3306, 5432]
     scan_ports("localhost", common_ports)`
-          }
-        }
-      },
-      ".secrets": {
-        type: "dir",
-        contents: {
-          "flag.txt": {
-            type: "file",
-            content: `Nice work! You found the hidden flag.
-flag{y0u_f0und_4v3ry5_s3cr3t_f1l3}
-
-If you're a recruiter who found this, I appreciate the thoroughness.
-Feel free to reach out: linkedin.com/in/avery-hughes06`
-          },
-          ".env": {
-            type: "file",
-            content: `# Not real credentials, but good instinct checking here
-DATABASE_URL=postgresql://avery:nice_try@localhost/portfolio
-SECRET_KEY=you_thought_this_was_real_huh
-API_KEY=flag{3nv_f1l3s_sh0uld_n3v3r_b3_c0mm1tt3d}`
           }
         }
       },

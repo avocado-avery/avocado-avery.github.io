@@ -34,23 +34,25 @@ export class Firefox extends Component {
 
     checkKey = (e) => {
         if (e.key === "Enter") {
-            let url = e.target.value;
-            let display_url = "";
+            let input = e.target.value.trim();
+            if (input.length === 0) return;
 
-            url = url.trim();
-            if (url.length === 0) return;
+            let url, display_url;
 
-            if (url.indexOf("http://") !== 0 && url.indexOf("https://") !== 0) {
-                url = "https://" + url;
+            // If it looks like a URL, navigate directly
+            if (input.indexOf("http://") === 0 || input.indexOf("https://") === 0) {
+                url = encodeURI(input);
+                display_url = input;
+            } else if (input.includes(".") && !input.includes(" ")) {
+                url = encodeURI("https://" + input);
+                display_url = "https://" + input;
+            } else {
+                // Otherwise treat as a Google search
+                url = "https://www.google.com/search?igu=1&q=" + encodeURIComponent(input);
+                display_url = input;
             }
 
-            url = encodeURI(url);
-            display_url = url;
-            if (url.includes("google.com")) {
-                url = 'https://www.google.com/webhp?igu=1';
-                display_url = "https://www.google.com";
-            }
-            this.setState({ url, display_url: url });
+            this.setState({ url, display_url });
             this.storeVisitedUrl(url, display_url);
             document.getElementById("firefox-url-bar").blur();
         }

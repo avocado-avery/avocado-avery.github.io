@@ -1,6 +1,54 @@
 import React, { Component } from 'react';
 import { FILESYSTEM, resolvePath, shortPath, normalizePath } from '../shared/filesystem';
 
+// Simple syntax highlighting rules by file extension
+function highlightLine(line, filename) {
+  const ext = filename.split('.').pop();
+  let html = escapeHtml(line);
+
+  if (ext === 'sh' || filename === '.bashrc') {
+    // Bash syntax
+    html = html
+      .replace(/^(\s*#.*)$/g, '<span style="color:#555">$1</span>')
+      .replace(/\b(if|then|else|fi|for|do|done|while|case|esac|function|return|exit|echo|export|alias|source|local|readonly)\b/g, '<span style="color:#cc6633">$1</span>')
+      .replace(/(\$\w+|\$\{[^}]+\})/g, '<span style="color:#1793D1">$1</span>')
+      .replace(/"([^"]*)"/g, '"<span style="color:#4E9A06">$1</span>"')
+  } else if (ext === 'py') {
+    // Python syntax
+    html = html
+      .replace(/^(\s*#.*)$/g, '<span style="color:#555">$1</span>')
+      .replace(/(""".*?"""|\'\'\'.*?\'\'\')/g, '<span style="color:#4E9A06">$1</span>')
+      .replace(/\b(import|from|def|class|if|elif|else|for|while|try|except|finally|with|as|return|yield|raise|pass|break|continue|and|or|not|in|is|True|False|None|print|self)\b/g, '<span style="color:#cc6633">$1</span>')
+      .replace(/"([^"]*)"/g, '"<span style="color:#4E9A06">$1</span>"')
+      .replace(/'([^']*)'/g, '\'<span style="color:#4E9A06">$1</span>\'')
+  } else if (ext === 'md') {
+    // Markdown syntax
+    html = html
+      .replace(/^(#{1,6}\s.*)$/g, '<span style="color:#1793D1;font-weight:bold">$1</span>')
+      .replace(/^(\s*[-*]\s)/g, '<span style="color:#cc6633">$1</span>')
+      .replace(/\*\*([^*]+)\*\*/g, '<span style="font-weight:bold;color:#c5c8c6">$1</span>')
+      .replace(/`([^`]+)`/g, '<span style="color:#4E9A06;background:rgba(78,154,6,0.1);padding:0 2px">$1</span>')
+  } else if (filename === '.vimrc') {
+    // Vimscript
+    html = html
+      .replace(/^(\s*".*)$/g, '<span style="color:#555">$1</span>')
+      .replace(/\b(set|syntax|colorscheme|on|off)\b/g, '<span style="color:#cc6633">$1</span>')
+  } else if (ext === 'txt') {
+    // Text files - highlight headers and special patterns
+    html = html
+      .replace(/^(={3,})$/g, '<span style="color:#1793D1">$1</span>')
+      .replace(/^(\[[\+\!\*\-]\]\s.*)$/g, '<span style="color:#4E9A06">$1</span>')
+      .replace(/^(\w[\w\s]+:)\s/g, '<span style="color:#1793D1">$1</span> ')
+      .replace(/(https?:\/\/\S+)/g, '<span style="color:#1793D1;text-decoration:underline">$1</span>')
+  }
+
+  return html;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 export class AboutAvery extends Component {
   constructor() {
     super();
@@ -8,7 +56,7 @@ export class AboutAvery extends Component {
       currentPath: '/home/avery',
       selectedFile: null,
       fileContent: null,
-      viewMode: 'grid', // grid or list
+      viewMode: 'grid',
     };
   }
 
@@ -107,14 +155,14 @@ export class AboutAvery extends Component {
   renderSidebar = () => {
     const homeDir = FILESYSTEM['/home/avery'];
     const dirs = Object.entries(homeDir.contents)
-      .filter(([, item]) => item.type === 'dir' && !item.type !== 'dir')
+      .filter(([, item]) => item.type === 'dir')
       .filter(([name]) => !name.startsWith('.'))
       .sort(([a], [b]) => a.localeCompare(b));
 
     return (
-      <div className="flex flex-col py-2" style={{ borderRight: '1px solid #1a1a1a' }}>
+      <div className="flex flex-col py-2" style={{ borderRight: '1px solid rgba(255,255,255,0.06)' }}>
         <div
-          className="flex items-center gap-2 px-3 py-1.5 cursor-pointer hover:bg-white hover:bg-opacity-5 text-xs font-mono"
+          className="flex items-center gap-2 px-3 py-1.5 cursor-pointer hover:bg-white hover:bg-opacity-5 rounded-r-lg text-xs font-mono"
           style={{ color: this.state.currentPath === '/home/avery' ? '#1793D1' : '#999' }}
           onClick={this.goHome}
         >
@@ -127,7 +175,7 @@ export class AboutAvery extends Component {
           return (
             <div
               key={name}
-              className="flex items-center gap-2 px-3 py-1.5 cursor-pointer hover:bg-white hover:bg-opacity-5 text-xs font-mono"
+              className="flex items-center gap-2 px-3 py-1.5 cursor-pointer hover:bg-white hover:bg-opacity-5 rounded-r-lg text-xs font-mono"
               style={{
                 color: isActive ? '#1793D1' : '#999',
                 backgroundColor: isActive ? 'rgba(23, 147, 209, 0.08)' : 'transparent',
@@ -140,16 +188,6 @@ export class AboutAvery extends Component {
             </div>
           );
         })}
-        <div className="mt-2" style={{ borderTop: '1px solid #1a1a1a' }}>
-          <div
-            className="flex items-center gap-2 px-3 py-1.5 cursor-pointer hover:bg-white hover:bg-opacity-5 text-xs font-mono mt-1"
-            style={{ color: '#7c7c7c' }}
-            onClick={() => this.navigateTo('/home/avery/.secrets')}
-          >
-            <span>🔒</span>
-            <span>.secrets</span>
-          </div>
-        </div>
       </div>
     );
   }
@@ -166,7 +204,6 @@ export class AboutAvery extends Component {
         return 0;
       });
 
-    // Show hidden files too
     const hidden = Object.entries(dir.contents)
       .filter(([name]) => name.startsWith('.'))
       .sort(([a], [b]) => a.localeCompare(b));
@@ -182,12 +219,12 @@ export class AboutAvery extends Component {
     }
 
     return (
-      <div className="flex-grow overflow-y-auto p-3 windowMainScreen">
-        <div className="flex flex-wrap gap-2">
+      <div className="flex-grow overflow-y-auto windowMainScreen">
+        <div className="flex flex-wrap gap-2 p-3 justify-center">
           {allEntries.map(([name, item]) => (
             <div
               key={name}
-              className="flex flex-col items-center justify-center p-2 cursor-pointer hover:bg-white hover:bg-opacity-5 transition-colors"
+              className="flex flex-col items-center justify-center p-2 cursor-pointer hover:bg-white hover:bg-opacity-5 transition-colors rounded-lg"
               style={{
                 width: '90px',
                 minHeight: '80px',
@@ -213,26 +250,87 @@ export class AboutAvery extends Component {
   renderFileContent = () => {
     if (!this.state.selectedFile || !this.state.fileContent) return null;
 
+    const lines = this.state.fileContent.split('\n');
+    const lineCount = lines.length;
+    const lineNumWidth = Math.max(String(lineCount).length, 2);
+    const filePath = shortPath(this.state.currentPath) + '/' + this.state.selectedFile;
+
     return (
-      <div className="flex flex-col h-full" style={{ backgroundColor: '#0c0c0c' }}>
-        <div className="flex items-center justify-between px-3 py-1.5 text-xs font-mono" style={{ backgroundColor: '#141414', borderBottom: '1px solid #242424' }}>
-          <div className="flex items-center gap-2">
-            <span>{this.getFileIcon(this.state.selectedFile, 'file')}</span>
-            <span style={{ color: '#c5c8c6' }}>{this.state.selectedFile}</span>
-            <span style={{ color: '#555' }}>({this.state.fileContent.length} bytes)</span>
-          </div>
-          <div
-            className="px-2 py-0.5 cursor-pointer hover:bg-white hover:bg-opacity-5"
-            style={{ color: '#7c7c7c', border: '1px solid #242424' }}
-            onClick={this.closeFileView}
-          >
-            ✕ Close
+      <div className="flex flex-col h-full" style={{ backgroundColor: '#0a0a0a' }}>
+        {/* Vim-style file content with line numbers */}
+        <div className="flex-grow overflow-y-auto windowMainScreen flex justify-center">
+          <div className="w-full max-w-4xl">
+            {lines.map((line, i) => (
+              <div key={i} className="flex font-mono" style={{ fontSize: '12px', lineHeight: '20px' }}>
+                <span
+                  className="select-none text-right pr-3 flex-shrink-0"
+                  style={{
+                    width: `${lineNumWidth + 2}ch`,
+                    color: '#555',
+                    backgroundColor: '#080808',
+                    borderRight: '1px solid #1a1a1a',
+                  }}
+                >
+                  {i + 1}
+                </span>
+                <span
+                  className="pl-3 flex-grow whitespace-pre-wrap break-words"
+                  style={{ color: '#c5c8c6' }}
+                  dangerouslySetInnerHTML={{ __html: highlightLine(line, this.state.selectedFile) || '&nbsp;' }}
+                />
+              </div>
+            ))}
+            {/* Vim tilde lines for empty space */}
+            {lineCount < 20 && Array.from({ length: 20 - lineCount }, (_, i) => (
+              <div key={`tilde-${i}`} className="flex font-mono" style={{ fontSize: '12px', lineHeight: '20px' }}>
+                <span
+                  className="select-none text-right pr-3 flex-shrink-0"
+                  style={{
+                    width: `${lineNumWidth + 2}ch`,
+                    backgroundColor: '#080808',
+                    borderRight: '1px solid #1a1a1a',
+                  }}
+                >&nbsp;</span>
+                <span className="pl-3" style={{ color: '#1793D1' }}>~</span>
+              </div>
+            ))}
           </div>
         </div>
-        <div className="flex-grow overflow-y-auto p-3 windowMainScreen">
-          <pre className="font-mono text-xs leading-relaxed whitespace-pre-wrap" style={{ color: '#c5c8c6' }}>
-            {this.state.fileContent}
-          </pre>
+
+        {/* Vim statusline */}
+        <div className="flex items-center justify-between font-mono select-none" style={{ fontSize: '11px', height: '22px' }}>
+          <div className="flex items-center h-full">
+            <span className="px-2 h-full flex items-center font-bold" style={{ backgroundColor: '#1793D1', color: '#0a0a0a' }}>
+              NORMAL
+            </span>
+            <span className="px-2 h-full flex items-center" style={{ backgroundColor: '#1a1a1a', color: '#c5c8c6' }}>
+              {filePath}
+            </span>
+            <span className="px-2 h-full flex items-center" style={{ backgroundColor: '#111', color: '#555' }}>
+              {this.state.fileContent.length}B
+            </span>
+          </div>
+          <div className="flex items-center h-full">
+            <span className="px-2 h-full flex items-center" style={{ backgroundColor: '#111', color: '#555' }}>
+              utf-8
+            </span>
+            <span className="px-2 h-full flex items-center" style={{ backgroundColor: '#1a1a1a', color: '#7c7c7c' }}>
+              {lineCount}L
+            </span>
+            <span className="px-2 h-full flex items-center font-bold" style={{ backgroundColor: '#1793D1', color: '#0a0a0a' }}>
+              1:{1}
+            </span>
+          </div>
+        </div>
+
+        {/* Vim command line */}
+        <div className="flex items-center font-mono" style={{ fontSize: '11px', height: '20px', backgroundColor: '#0a0a0a' }}>
+          <span className="px-2" style={{ color: '#555' }}>
+            "{this.state.selectedFile}" {lineCount}L, {this.state.fileContent.length}B
+          </span>
+          <span className="ml-auto px-2 cursor-pointer hover:underline" style={{ color: '#cc3333' }} onClick={this.closeFileView}>
+            :q
+          </span>
         </div>
       </div>
     );
@@ -245,7 +343,7 @@ export class AboutAvery extends Component {
       Object.keys(dir.contents).filter(n => !n.startsWith('.')).length : 0;
 
     return (
-      <div className="flex items-center justify-between px-3 py-1 text-xs font-mono" style={{ backgroundColor: '#111111', borderTop: '1px solid #1a1a1a', color: '#555' }}>
+      <div className="flex items-center justify-between px-3 py-1 text-xs font-mono" style={{ backgroundColor: '#111111', borderTop: '1px solid rgba(255,255,255,0.06)', color: '#555', borderRadius: '0 0 12px 12px' }}>
         <span>{visibleCount} items{count > visibleCount ? ` (${count - visibleCount} hidden)` : ''}</span>
         <span>{shortPath(this.state.currentPath)}</span>
       </div>
@@ -256,9 +354,9 @@ export class AboutAvery extends Component {
     return (
       <div className="w-full h-full flex flex-col select-none" style={{ backgroundColor: '#0c0c0c', color: '#c5c8c6' }}>
         {/* Toolbar */}
-        <div className="flex items-center gap-1 px-2 py-1 text-xs font-mono" style={{ backgroundColor: '#141414', borderBottom: '1px solid #242424' }}>
+        <div className="flex items-center gap-1 px-2 py-1 text-xs font-mono" style={{ backgroundColor: '#141414', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
           <div
-            className="px-2 py-0.5 cursor-pointer hover:bg-white hover:bg-opacity-5"
+            className="px-2 py-0.5 cursor-pointer hover:bg-white hover:bg-opacity-5 rounded"
             style={{ color: this.state.currentPath !== '/home/avery' ? '#c5c8c6' : '#555' }}
             onClick={this.goUp}
             title="Go up"
@@ -266,14 +364,14 @@ export class AboutAvery extends Component {
             ↑
           </div>
           <div
-            className="px-2 py-0.5 cursor-pointer hover:bg-white hover:bg-opacity-5"
+            className="px-2 py-0.5 cursor-pointer hover:bg-white hover:bg-opacity-5 rounded"
             style={{ color: '#c5c8c6' }}
             onClick={this.goHome}
             title="Home"
           >
             ~
           </div>
-          <div className="flex-grow flex items-center px-2 py-0.5 mx-1" style={{ backgroundColor: '#1a1a1a', border: '1px solid #242424' }}>
+          <div className="flex-grow flex items-center px-2 py-0.5 mx-1 rounded" style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(255,255,255,0.06)' }}>
             {this.renderBreadcrumb()}
           </div>
         </div>
@@ -295,7 +393,7 @@ export class AboutAvery extends Component {
         </div>
 
         {/* Status bar */}
-        {this.renderStatusBar()}
+        {!this.state.selectedFile && this.renderStatusBar()}
       </div>
     );
   }

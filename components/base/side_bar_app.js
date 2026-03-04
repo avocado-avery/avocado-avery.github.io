@@ -30,33 +30,32 @@ export class SideBarApp extends Component {
     };
 
     render() {
+        const isOpen = this.props.isClose[this.id] === false;
+        const isFocused = isOpen && this.props.isFocus[this.id];
+
         return (
             <div
                 tabIndex="0"
                 onClick={this.openApp}
-                onMouseEnter={() => {
-                    this.setState({ showTitle: true });
-                }}
-                onMouseLeave={() => {
-                    this.setState({ showTitle: false });
-                }}
-                className={(this.props.isClose[this.id] === false && this.props.isFocus[this.id] ? "bg-white bg-opacity-5 " : "") + " w-auto p-2 outline-none relative transition hover:bg-white hover:bg-opacity-5 m-0.5"}
+                onMouseEnter={() => { this.setState({ showTitle: true }); }}
+                onMouseLeave={() => { this.setState({ showTitle: false }); }}
+                className={"hypr-dock-app outline-none" + (isFocused ? " active" : "")}
                 id={"sidebar-" + this.props.id}
             >
-                <img width="28px" height="28px" className="w-7" src={this.props.icon} alt="App Icon" />
-                <img className={(this.state.scaleImage ? " scale " : "") + " scalable-app-icon w-7 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"} src={this.props.icon} alt="" />
-                {
-                    (
-                        this.props.isClose[this.id] === false
-                            ? <div className="w-0.5 h-3 absolute left-0 top-1/2 transform -translate-y-1/2" style={{ backgroundColor: '#1793D1' }}></div>
-                            : null
-                    )
-                }
+                <img width="24px" height="24px" className="w-6" src={this.props.icon} alt="App Icon" />
+                <img className={(this.state.scaleImage ? " scale " : "") + " scalable-app-icon w-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"} src={this.props.icon} alt="" />
+                {isOpen && <div className="hypr-dock-indicator" />}
                 <div
                     className={
                         (this.state.showTitle ? " visible " : " invisible ") +
-                        " w-max py-0.5 px-1.5 absolute top-1.5 left-full ml-3 m-1 text-ubt-grey text-xs font-mono bg-ub-cool-grey border-gray-700 border border-opacity-40"
+                        " w-max py-1 px-2 absolute top-1/2 -translate-y-1/2 left-full ml-4 text-ubt-grey text-xs font-mono"
                     }
+                    style={{
+                        backgroundColor: 'rgba(17, 17, 17, 0.92)',
+                        backdropFilter: 'blur(12px)',
+                        border: '1px solid rgba(255, 255, 255, 0.06)',
+                        borderRadius: '8px',
+                    }}
                 >
                     {this.props.title}
                 </div>
