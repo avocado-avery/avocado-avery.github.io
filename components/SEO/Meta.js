@@ -4,7 +4,7 @@ import Head from 'next/head';
 export default function Meta() {
     const title = "Avery Hughes | Cybersecurity Student & Security Researcher";
     const description = "Cybersecurity student and security researcher specializing in penetration testing, network security, and ethical hacking. Explore an interactive Arch Linux-themed portfolio featuring projects, skills, and experience.";
-    const siteUrl = "https://averyhughes.dev";
+    const siteUrl = "https://itsavery.me";
     const ogImage = `${siteUrl}/images/logos/logo_1200.png`;
     const twitterImage = `${siteUrl}/images/logos/logo_1024.png`;
 

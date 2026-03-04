@@ -2,7 +2,7 @@
   "name": "avery-hughes-portfolio",
   "version": "2.0.0",
   "private": true,
-  "homepage": "https://averyhughes.dev/",
+  "homepage": "https://itsavery.me/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
