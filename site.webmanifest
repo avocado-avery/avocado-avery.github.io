@@ -1,0 +1,26 @@
+{
+  "name": "Avery Hughes - Cybersecurity Portfolio",
+  "short_name": "Avery Hughes",
+  "description": "Cybersecurity student & security researcher. Interactive portfolio built as an Arch Linux desktop environment.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0c0c",
+  "theme_color": "#1793D1",
+  "icons": [
+    {
+      "src": "/images/logos/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logos/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logos/fevicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
