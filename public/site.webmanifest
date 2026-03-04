@@ -13,14 +13,9 @@
       "type": "image/png"
     },
     {
-      "src": "/images/logos/favicon-512x512.png",
+      "src": "/images/logos/logo_512.png",
       "sizes": "512x512",
       "type": "image/png"
-    },
-    {
-      "src": "/images/logos/fevicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
     }
   ]
 }

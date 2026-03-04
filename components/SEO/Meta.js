@@ -62,9 +62,8 @@ export default function Meta() {
             {/* Canonical URL */}
             <link rel="canonical" href={siteUrl} />
 
-            {/* Favicons - Multi-size support */}
+            {/* Favicons - all derived from /favicon.ico */}
             <link rel="icon" href="/favicon.ico" sizes="48x48" />
-            <link rel="icon" href="/images/logos/fevicon.svg" type="image/svg+xml" />
             <link rel="icon" type="image/png" sizes="16x16" href="/images/logos/favicon-16x16.png" />
             <link rel="icon" type="image/png" sizes="32x32" href="/images/logos/favicon-32x32.png" />
             <link rel="icon" type="image/png" sizes="96x96" href="/images/logos/favicon-96x96.png" />
