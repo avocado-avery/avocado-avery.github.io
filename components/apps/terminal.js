@@ -97,7 +97,6 @@ export class Terminal extends Component {
 
   reStartTerminal = () => {
     clearInterval(this.cursor);
-    $('#terminal-body').empty();
     this.terminal_rows = 1;
     this.setState({ terminal: [] }, () => {
       this.appendTerminalRow();

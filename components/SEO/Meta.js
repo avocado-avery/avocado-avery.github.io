@@ -2,50 +2,111 @@ import React from 'react'
 import Head from 'next/head';
 
 export default function Meta() {
+    const title = "Avery Hughes | Cybersecurity Student & Security Researcher";
+    const description = "Cybersecurity student and security researcher specializing in penetration testing, network security, and ethical hacking. Explore an interactive Arch Linux-themed portfolio featuring projects, skills, and experience.";
+    const siteUrl = "https://averyhughes.dev";
+    const ogImage = `${siteUrl}/images/logos/logo_1200.png`;
+    const twitterImage = `${siteUrl}/images/logos/logo_1024.png`;
+
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Avery Hughes",
+        "url": siteUrl,
+        "image": ogImage,
+        "jobTitle": "Cybersecurity Student",
+        "description": description,
+        "sameAs": [
+            "https://github.com/avocado-avery",
+            "https://www.linkedin.com/in/averyhughes"
+        ],
+        "knowsAbout": [
+            "Cybersecurity",
+            "Penetration Testing",
+            "Network Security",
+            "Ethical Hacking",
+            "Linux Administration",
+            "Security Research"
+        ]
+    };
+
+    const websiteJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": title,
+        "url": siteUrl,
+        "description": description,
+        "author": {
+            "@type": "Person",
+            "name": "Avery Hughes"
+        }
+    };
+
     return (
         <Head>
-           /* Primary Meta Tags */
-            <title>Avery Hughes Portfolio - Cybersecurity Student</title>
+            {/* Primary Meta Tags */}
+            <title>{title}</title>
             <meta charSet="utf-8" />
-            <meta name="title" content="Avery Hughes Portfolio - Cybersecurity Student" />
-            <meta name="description"
-                content="Avery Hughes' Personal Portfolio Website. Made with Arch Linux theme by Next.js and Tailwind CSS." />
+            <meta name="title" content={title} />
+            <meta name="description" content={description} />
             <meta name="author" content="Avery Hughes" />
-            <meta name="keywords"
-                content="avery hughes, avery hughes portfolio, cybersecurity portfolio, arch linux portfolio, avery hughes cybersecurity, security engineer portfolio" />
-            <meta name="robots" content="index, follow" />
+            <meta name="keywords" content="avery hughes, cybersecurity, penetration testing, security researcher, ethical hacking, network security, arch linux, portfolio, CTF, bug bounty, infosec, cybersecurity student, security engineer" />
+            <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
             <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
             <meta name="language" content="English" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <meta name="theme-color" content="#0c0c0c" />
+            <meta name="theme-color" content="#1793D1" />
+            <meta name="color-scheme" content="dark" />
+            <meta name="generator" content="Next.js" />
 
-            /* Search Engine */
-            <meta name="image" content="images/logos/fevicon.png" />
-            /* Schema.org for Google */
-            <meta itemProp="name" content="Avery Hughes Portfolio - Cybersecurity Student" />
-            <meta itemProp="description"
-                content="Avery Hughes' Personal Portfolio Website. Made with Arch Linux theme by Next.js and Tailwind CSS." />
-            <meta itemProp="image" content="images/logos/fevicon.png" />
-            /* Twitter */
-            <meta name="twitter:card" content="summary" />
-            <meta name="twitter:title" content="Avery Hughes Portfolio - Cybersecurity Student" />
-            <meta name="twitter:description"
-                content="Avery Hughes' Personal Portfolio Website. Made with Arch Linux theme by Next.js and Tailwind CSS." />
-            <meta name="twitter:site" content="averyhughes" />
-            <meta name="twitter:creator" content="averyhughes" />
-            <meta name="twitter:image:src" content="images/logos/logo_1024.png" />
-            /* Open Graph general (Facebook, Pinterest & Google+) */
-            <meta name="og:title" content="Avery Hughes Portfolio - Cybersecurity Student" />
-            <meta name="og:description"
-                content="Avery Hughes' Personal Portfolio Website. Made with Arch Linux theme by Next.js and Tailwind CSS." />
-            <meta name="og:image" content="images/logos/logo_1200.png" />
-            <meta name="og:url" content="https://averyhughes.dev/" />
-            <meta name="og:site_name" content="Avery Hughes Personal Portfolio" />
-            <meta name="og:locale" content="en_US" />
-            <meta name="og:type" content="website" />
+            {/* Canonical URL */}
+            <link rel="canonical" href={siteUrl} />
 
-            <link rel="icon" href="images/logos/fevicon.svg" />
-            <link rel="apple-touch-icon" href="images/logos/logo.png" />
+            {/* Favicons - Multi-size support */}
+            <link rel="icon" href="/favicon.ico" sizes="48x48" />
+            <link rel="icon" href="/images/logos/fevicon.svg" type="image/svg+xml" />
+            <link rel="icon" type="image/png" sizes="16x16" href="/images/logos/favicon-16x16.png" />
+            <link rel="icon" type="image/png" sizes="32x32" href="/images/logos/favicon-32x32.png" />
+            <link rel="icon" type="image/png" sizes="96x96" href="/images/logos/favicon-96x96.png" />
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/logos/favicon-180x180.png" />
+            <link rel="manifest" href="/site.webmanifest" />
+
+            {/* Schema.org structured data */}
+            <meta itemProp="name" content={title} />
+            <meta itemProp="description" content={description} />
+            <meta itemProp="image" content={ogImage} />
+
+            {/* Open Graph / Facebook */}
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={siteUrl} />
+            <meta property="og:title" content={title} />
+            <meta property="og:description" content={description} />
+            <meta property="og:image" content={ogImage} />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="1200" />
+            <meta property="og:image:alt" content="Avery Hughes - Cybersecurity Portfolio" />
+            <meta property="og:site_name" content="Avery Hughes Portfolio" />
+            <meta property="og:locale" content="en_US" />
+
+            {/* Twitter Card */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={title} />
+            <meta name="twitter:description" content={description} />
+            <meta name="twitter:image" content={twitterImage} />
+            <meta name="twitter:site" content="@averyhughes" />
+            <meta name="twitter:creator" content="@averyhughes" />
+
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+            />
+
+            {/* Fonts */}
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
             <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" as="style" />
