@@ -1,42 +1,36 @@
-name: Node.js CI
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
           cache: "yarn"
 
-      - name: Installing Packages
+      - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Building
+      - name: Build
         run: yarn build
 
-      - name: Exporting Bundle Files
+      - name: Export static files
         run: yarn export
 
       - name: Disable Jekyll
         run: touch ./out/.nojekyll
 
-      - name: Deploy to Github-Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: out
