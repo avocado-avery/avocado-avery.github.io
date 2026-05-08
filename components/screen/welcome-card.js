@@ -40,8 +40,8 @@ export default function WelcomeCard({ visible, openApp }) {
                 {/* Quick links */}
                 <div className="flex gap-2 flex-wrap justify-center">
                     <WelcomeBtn label="Resume" onClick={() => openApp("resume")} primary />
-                    <WelcomeBtn label="LinkedIn" onClick={() => window.open("https://www.linkedin.com/in/avery-hughes06/", "_blank")} />
-                    <WelcomeBtn label="GitHub" onClick={() => window.open("https://github.com/avocado-avery", "_blank")} />
+                    <WelcomeBtn label="LinkedIn" onClick={() => window.open("https://itsavery.me/linkedin", "_blank")} />
+                    <WelcomeBtn label="GitHub" onClick={() => window.open("https://itsavery.me/github", "_blank")} />
                     <WelcomeBtn label="Contact" onClick={() => openApp("gedit")} />
                 </div>
 

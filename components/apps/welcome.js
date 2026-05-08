@@ -62,12 +62,12 @@ export class Welcome extends Component {
                             <LinkCard
                                 label="GitHub"
                                 sub="@avocado-avery"
-                                href="https://github.com/avocado-avery"
+                                href="https://itsavery.me/github"
                             />
                             <LinkCard
                                 label="LinkedIn"
                                 sub="avery-hughes06"
-                                href="https://www.linkedin.com/in/avery-hughes06/"
+                                href="https://itsavery.me/linkedin"
                             />
                             <LinkCard
                                 label="HackTheBox"

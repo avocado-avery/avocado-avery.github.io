@@ -14,9 +14,9 @@ function BootingScreen(props) {
                 archlinux
             </div>
             <div className="text-xs font-mono mt-12" style={{ color: '#444' }}>
-                <a className="hover:text-ubt-blue transition-colors" href="https://www.linkedin.com/in/avery-hughes06/" rel="noreferrer noopener" target="_blank">linkedin</a>
+                <a className="hover:text-ubt-blue transition-colors" href="https://itsavery.me/linkedin" rel="noreferrer noopener" target="_blank">linkedin</a>
                 <span className="mx-2">|</span>
-                <a href="https://github.com/avocado-avery" rel="noreferrer noopener" target="_blank" className="hover:text-ubt-blue transition-colors">github</a>
+                <a href="https://itsavery.me/github" rel="noreferrer noopener" target="_blank" className="hover:text-ubt-blue transition-colors">github</a>
                 <span className="mx-2">|</span>
                 <a href="https://app.hackthebox.com/users/2071893" rel="noreferrer noopener" target="_blank" className="hover:text-ubt-blue transition-colors">hackthebox</a>
             </div>
