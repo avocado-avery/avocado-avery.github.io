@@ -85,10 +85,10 @@ export function WindowTopBar(props) {
         <div className="window-titlebar relative py-1 px-3 w-full select-none flex items-center" style={{ backgroundColor: 'rgba(17, 17, 17, 0.95)', borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
             <div className="flex-1 text-center text-xs font-mono tracking-wide" style={{ color: '#7c7c7c' }}>{props.title}</div>
             <div className="flex items-center shrink-0">
-                <button tabIndex="-1" className="focus:outline-none cursor-default flex justify-center items-center window-btn window-btn-minimize" onClick={props.minimize}>
+                <button aria-label={`Minimize ${props.title}`} className="focus:outline-none cursor-default flex justify-center items-center window-btn window-btn-minimize" onClick={props.minimize}>
                     <svg width="10" height="10" viewBox="0 0 10 10"><line x1="2" y1="5" x2="8" y2="5" stroke="currentColor" strokeWidth="1.2"/></svg>
                 </button>
-                <button tabIndex="-1" className="focus:outline-none cursor-default flex justify-center items-center window-btn window-btn-maximize" onClick={props.maximize}>
+                <button aria-label={props.maximized ? `Restore ${props.title}` : `Maximize ${props.title}`} className="focus:outline-none cursor-default flex justify-center items-center window-btn window-btn-maximize" onClick={props.maximize}>
                     {props.maximized ? (
                         <svg width="10" height="10" viewBox="0 0 10 10">
                             <rect x="0.5" y="2.5" width="6" height="6" fill="none" stroke="currentColor" strokeWidth="1.2"/>
@@ -98,7 +98,7 @@ export function WindowTopBar(props) {
                         <svg width="10" height="10" viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7" fill="none" stroke="currentColor" strokeWidth="1.2"/></svg>
                     )}
                 </button>
-                <button tabIndex="-1" id={`close-${props.id}`} className="focus:outline-none cursor-default flex justify-center items-center window-btn window-btn-close" onClick={props.close}>
+                <button aria-label={`Close ${props.title}`} id={`close-${props.id}`} className="focus:outline-none cursor-default flex justify-center items-center window-btn window-btn-close" onClick={props.close}>
                     <svg width="10" height="10" viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8" stroke="currentColor" strokeWidth="1.2"/><line x1="8" y1="2" x2="2" y2="8" stroke="currentColor" strokeWidth="1.2"/></svg>
                 </button>
             </div>

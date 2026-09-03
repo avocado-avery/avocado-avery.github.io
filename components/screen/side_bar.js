@@ -47,10 +47,14 @@ export function AllApps(props) {
     const [title, setTitle] = useState(false);
 
     return (
-        <div
+        <button
+            type="button"
+            aria-label="Show applications"
             className="hypr-dock-app"
             onMouseEnter={() => { setTitle(true); }}
             onMouseLeave={() => { setTitle(false); }}
+            onFocus={() => { setTitle(true); }}
+            onBlur={() => { setTitle(false); }}
             onClick={props.showApps}
         >
             <div className="relative">
@@ -70,6 +74,6 @@ export function AllApps(props) {
                     Show Applications
                 </div>
             </div>
-        </div>
+        </button>
     );
 }

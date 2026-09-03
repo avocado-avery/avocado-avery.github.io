@@ -33,12 +33,12 @@ function Entry({ title, org, meta, points }) {
         <article className="mb-6">
             <h3 className="text-sm leading-snug" style={{ color: '#e0e0e0' }}>{title}</h3>
             {org && <p className="text-xs mt-0.5" style={{ color: ACCENT }}>{org}</p>}
-            {meta && <p className="text-xs mt-0.5" style={{ color: '#555' }}>{meta}</p>}
+            {meta && <p className="text-xs mt-0.5" style={{ color: '#8a8a8a' }}>{meta}</p>}
             {points && (
                 <ul className="mt-2">
                     {points.map((p, i) => (
                         <li key={i} className="text-xs leading-relaxed flex" style={{ color: '#999' }}>
-                            <span aria-hidden="true" className="mr-2" style={{ color: '#444' }}>·</span>
+                            <span aria-hidden="true" className="mr-2" style={{ color: '#7c7c7c' }}>·</span>
                             <span>{p}</span>
                         </li>
                     ))}
@@ -58,14 +58,14 @@ export default function ProfileContent() {
             aria-label={`About ${p.name}`}
         >
             <div className="max-w-xl mx-auto">
-                <p className="text-xs" style={{ color: '#555' }}>
+                <p className="text-xs" style={{ color: '#8a8a8a' }}>
                     <span style={{ color: '#4E9A06' }}>avery@archlinux</span>
-                    <span style={{ color: '#555' }}>:~$</span> whoami
+                    <span style={{ color: '#8a8a8a' }}>:~$</span> whoami
                 </p>
 
                 <h1 className="text-2xl font-bold mt-4" style={{ color: '#e0e0e0' }}>{p.name}</h1>
                 <p className="text-sm mt-1" style={{ color: ACCENT }}>{p.headline}</p>
-                <p className="text-xs mt-1" style={{ color: '#555' }}>{p.location}</p>
+                <p className="text-xs mt-1" style={{ color: '#8a8a8a' }}>{p.location}</p>
 
                 <div className="my-5" style={{ height: '1px', background: 'rgba(255,255,255,0.06)' }} />
 
@@ -136,7 +136,7 @@ export default function ProfileContent() {
                     <ul>
                         {p.honors.map((h) => (
                             <li key={h} className="text-xs leading-relaxed flex" style={{ color: '#999' }}>
-                                <span aria-hidden="true" className="mr-2" style={{ color: '#444' }}>·</span>
+                                <span aria-hidden="true" className="mr-2" style={{ color: '#7c7c7c' }}>·</span>
                                 <span>{h}</span>
                             </li>
                         ))}
@@ -147,7 +147,7 @@ export default function ProfileContent() {
                     <a href={`mailto:${p.email}`} className="text-xs no-underline" style={{ color: ACCENT }}>
                         {p.email}
                     </a>
-                    <p className="text-xs mt-6" style={{ color: '#333' }}>
+                    <p className="text-xs mt-6" style={{ color: '#7c7c7c' }}>
                         This site is an interactive Arch Linux desktop on wider screens.
                     </p>
                 </Section>
