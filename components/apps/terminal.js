@@ -1032,7 +1032,7 @@ export class Terminal extends Component {
       '   • Ball Venture Grant Recipient',
       '   • Dean\'s List',
       '',
-      C.cyan('Contact:') + ' avery.hughes@itcw.org',
+      C.cyan('Contact:') + ' ajhughes@itsavery.me',
       C.cyan('Links:') + '   linkedin.com/in/avery-hughes06 | github.com/avocado-avery',
     ].join('\n');
   }
@@ -1537,7 +1537,7 @@ export class Terminal extends Component {
     if (args[0] === 'log') {
       return [
         C.yellow('commit a7f8e9d2c1b3f4e5a6c7d8e9f0a1b2c3d4e5f6a7'),
-        'Author: Avery Hughes <avery.hughes@itcw.org>',
+        'Author: Avery Hughes <ajhughes@itsavery.me>',
         'Date:   ' + new Date().toDateString(),
         '',
         '    Updated portfolio with Arch Linux theme',
@@ -1696,7 +1696,7 @@ export class Terminal extends Component {
       "Avery can harden your Linux boxes while automating with Python. What more do you need?",
       "Red team skills + Blue team mindset = Avery Hughes",
       "If you're reading this, Avery's portfolio already impressed you. Imagine him on your team!",
-      "avery.hughes@itcw.org — The email address that could solve your security problems.",
+      "ajhughes@itsavery.me — The email address that could solve your security problems.",
       "Defense wins championships. Avery wins cybersecurity competitions.",
     ];
     return fortunes[Math.floor(Math.random() * fortunes.length)];

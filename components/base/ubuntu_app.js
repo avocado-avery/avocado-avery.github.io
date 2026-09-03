@@ -2,6 +2,13 @@ import React, { Component } from 'react'
 
 export class UbuntuApp extends Component {
 
+    handleKeyDown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.openApp();
+        }
+    }
+
     openApp = () => {
         if (this.props.isExternalApp && this.props.url) {
             window.open(this.props.url, "_blank");
@@ -12,11 +19,13 @@ export class UbuntuApp extends Component {
 
     render() {
         return (
-            <div
+            <button
+                type="button"
+                aria-label={`Open ${this.props.name}`}
                 className="p-1 m-px z-10 bg-white bg-opacity-0 hover:bg-opacity-5 focus:bg-opacity-10 focus:border-ubb-orange border border-transparent rounded-xl outline-none select-none w-24 h-20 flex flex-col justify-start items-center text-center text-xs font-mono text-ubt-grey relative"
                 id={"app-" + this.props.id}
                 onDoubleClick={this.openApp}
-                tabIndex={0}
+                onKeyDown={this.handleKeyDown}
             >
                 <div className="relative">
                     <img width="40px" height="40px" className="mb-1 w-10" src={this.props.icon} alt={this.props.name} />
@@ -29,7 +38,7 @@ export class UbuntuApp extends Component {
                     )}
                 </div>
                 <span style={{ fontSize: '10px', lineHeight: '1.3' }}>{this.props.name}</span>
-            </div>
+            </button>
         )
     }
 }

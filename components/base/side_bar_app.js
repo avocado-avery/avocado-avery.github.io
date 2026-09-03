@@ -34,11 +34,14 @@ export class SideBarApp extends Component {
         const isFocused = isOpen && this.props.isFocus[this.id];
 
         return (
-            <div
-                tabIndex="0"
+            <button
+                type="button"
+                aria-label={this.props.title}
                 onClick={this.openApp}
                 onMouseEnter={() => { this.setState({ showTitle: true }); }}
                 onMouseLeave={() => { this.setState({ showTitle: false }); }}
+                onFocus={() => { this.setState({ showTitle: true }); }}
+                onBlur={() => { this.setState({ showTitle: false }); }}
                 className={"hypr-dock-app outline-none" + (isFocused ? " active" : "")}
                 id={"sidebar-" + this.props.id}
             >
@@ -46,6 +49,7 @@ export class SideBarApp extends Component {
                 <img className={(this.state.scaleImage ? " scale " : "") + " scalable-app-icon w-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"} src={this.props.icon} alt="" />
                 {isOpen && <div className="hypr-dock-indicator" />}
                 <div
+                    aria-hidden="true"
                     className={
                         (this.state.showTitle ? " visible " : " invisible ") +
                         " w-max py-1 px-2 absolute top-1/2 -translate-y-1/2 left-full ml-4 text-ubt-grey text-xs font-mono"
@@ -59,7 +63,7 @@ export class SideBarApp extends Component {
                 >
                     {this.props.title}
                 </div>
-            </div>
+            </button>
         );
     }
 }

@@ -34,6 +34,9 @@ jobs:
       - name: Disable Jekyll
         run: touch ./out/.nojekyll
 
+      - name: Add CNAME
+        run: cp CNAME ./out/CNAME
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

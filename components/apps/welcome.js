@@ -27,9 +27,9 @@ export class Welcome extends Component {
                                 }}
                             />
                             <div className="text-center">
-                                <h1 className="text-lg font-mono font-bold tracking-wide" style={{ color: '#e0e0e0' }}>
+                                <h2 className="text-lg font-mono font-bold tracking-wide" style={{ color: '#e0e0e0' }}>
                                     Avery Hughes
-                                </h1>
+                                </h2>
                                 <p className="text-xs font-mono mt-1" style={{ color: '#1793D1' }}>
                                     Cybersecurity &middot; Team Lieutenant &middot; Unix Lead &middot; Offensive Security
                                 </p>
@@ -44,9 +44,6 @@ export class Welcome extends Component {
                             <p>
                                 Cybersecurity student at Indiana Tech (graduating May 2027) with a focus on
                                 offensive security, Linux systems, and breaking things to understand how they work.
-                            </p>
-                            <p className="mt-3">
-               
                             </p>
                             <p className="mt-3" style={{ color: '#555' }}>
                                 Feel free to poke around the desktop — open the terminal, check out the file manager,
@@ -72,7 +69,7 @@ export class Welcome extends Component {
                             <LinkCard
                                 label="HackTheBox"
                                 sub="profile"
-                                href="https://app.hackthebox.com/users/2071893"
+                                href="https://profile.hackthebox.com/profile/019cb195-6bda-72b0-abc2-4338a024079e"
                             />
                         </div>
 

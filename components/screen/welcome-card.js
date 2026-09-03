@@ -23,9 +23,9 @@ export default function WelcomeCard({ visible, openApp }) {
             >
                 {/* Name */}
                 <div className="text-center">
-                    <h1 className="text-xl font-mono font-bold tracking-wide" style={{ color: '#e0e0e0' }}>
+                    <h2 className="text-xl font-mono font-bold tracking-wide" style={{ color: '#e0e0e0' }}>
                         Avery Hughes
-                    </h1>
+                    </h2>
                     <p className="text-xs font-mono mt-1" style={{ color: '#1793D1' }}>
                         Cybersecurity &middot; Unix Lead &middot; Offensive Security
                     </p>

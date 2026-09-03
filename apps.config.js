@@ -1,4 +1,4 @@
-import displayVsCode from './components/apps/vscode';
+import { displayVsCode } from './components/apps/vscode';
 import { displayTerminal } from './components/apps/terminal';
 import { displaySettings } from './components/apps/settings';
 import { displayFirefox } from './components/apps/chrome';
@@ -130,7 +130,7 @@ const apps = [
         favourite: false,
         desktop_shortcut: true,
         isExternalApp: true,
-        url: "https://app.hackthebox.com/users/2071893"
+        url: "https://profile.hackthebox.com/profile/019cb195-6bda-72b0-abc2-4338a024079e"
     },
 ]
 

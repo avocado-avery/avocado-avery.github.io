@@ -18,7 +18,7 @@ function BootingScreen(props) {
                 <span className="mx-2">|</span>
                 <a href="https://itsavery.me/github" rel="noreferrer noopener" target="_blank" className="hover:text-ubt-blue transition-colors">github</a>
                 <span className="mx-2">|</span>
-                <a href="https://app.hackthebox.com/users/2071893" rel="noreferrer noopener" target="_blank" className="hover:text-ubt-blue transition-colors">hackthebox</a>
+                <a href="https://profile.hackthebox.com/profile/019cb195-6bda-72b0-abc2-4338a024079e" rel="noreferrer noopener" target="_blank" className="hover:text-ubt-blue transition-colors">hackthebox</a>
             </div>
         </div>
     )

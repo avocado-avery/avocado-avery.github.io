@@ -1,68 +1,54 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
+const CONTACT_EMAIL = 'ajhughes@itsavery.me';
+
 export class Gedit extends Component {
 
     constructor() {
         super();
         this.state = {
-            sending: false,
-            sent: false,
-            error: false,
+            opened: false,
+            copied: false,
         }
     }
 
-    sendMessage = async () => {
-        let name = $("#sender-name").val();
-        let subject = $("#sender-subject").val();
-        let message = $("#sender-message").val();
+    componentWillUnmount() {
+        clearTimeout(this.resetTimer);
+    }
 
-        name = name.trim();
-        subject = subject.trim();
-        message = message.trim();
+    flash = (key) => {
+        this.setState({ [key]: true });
+        clearTimeout(this.resetTimer);
+        this.resetTimer = setTimeout(() => this.setState({ opened: false, copied: false }), 2500);
+    }
 
-        let error = false;
-
-        if (name.length === 0) {
-            $("#sender-name").val('');
-            $("#sender-name").attr("placeholder", "Name must not be Empty!");
-            error = true;
-        }
+    sendMessage = () => {
+        let name = $("#sender-name").val().trim();
+        let subject = $("#sender-subject").val().trim();
+        let message = $("#sender-message").val().trim();
 
         if (message.length === 0) {
             $("#sender-message").val('');
             $("#sender-message").attr("placeholder", "Message must not be Empty!");
-            error = true;
+            return;
         }
-        if (error) return;
 
-        this.setState({ sending: true, error: false });
+        const body = name.length > 0 ? `${message}\n\n— ${name}` : message;
+        const mailto = `mailto:${CONTACT_EMAIL}`
+            + `?subject=${encodeURIComponent(subject || 'Hello from itsavery.me')}`
+            + `&body=${encodeURIComponent(body)}`;
 
-        try {
-            const response = await fetch("https://formspree.io/f/xlgwqjzd", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body: JSON.stringify({
-                    name: name,
-                    email: name,
-                    subject: subject,
-                    message: message,
-                }),
-            });
+        window.location.href = mailto;
+        this.flash('opened');
+    }
 
-            if (response.ok) {
-                this.setState({ sending: false, sent: true });
-                setTimeout(() => {
-                    $("#close-gedit").trigger("click");
-                }, 1500);
-            } else {
-                this.setState({ sending: false, error: true });
-            }
-        } catch (err) {
-            this.setState({ sending: false, error: true });
+    copyAddress = () => {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(CONTACT_EMAIL).then(
+                () => this.flash('copied'),
+                () => { }
+            );
         }
     }
 
@@ -70,17 +56,17 @@ export class Gedit extends Component {
         return (
             <div className="w-full h-full relative flex flex-col text-ubt-grey select-none" style={{ backgroundColor: '#0c0c0c' }}>
                 <div className="flex items-center justify-between w-full text-xs font-mono" style={{ backgroundColor: '#141414', borderBottom: '1px solid #242424', padding: '6px 12px' }}>
-                    <span className="font-bold" style={{ color: '#7c7c7c' }}>Send a Message</span>
-                    <div className="flex gap-2">
-                        {this.state.sent && <span className="text-ubt-green py-0.5">Sent!</span>}
-                        {this.state.error && <span style={{ color: '#cc3333' }} className="py-0.5">Failed to send</span>}
+                    <span className="font-bold" style={{ color: '#7c7c7c' }}>Compose Message</span>
+                    <div className="flex gap-2 items-center">
+                        {this.state.opened && <span className="text-ubt-green py-0.5">Opening mail client…</span>}
+                        {this.state.copied && <span className="text-ubt-green py-0.5">Address copied!</span>}
                         <div onClick={this.sendMessage} className="px-3 py-0.5 cursor-pointer hover:bg-white hover:bg-opacity-5 font-mono text-ubt-blue" style={{ border: '1px solid #242424' }}>Send</div>
                     </div>
                 </div>
                 <div className="relative flex-grow flex flex-col font-mono windowMainScreen" style={{ backgroundColor: '#0a0a0a' }}>
                     <div className="absolute left-0 top-0 h-full px-2" style={{ backgroundColor: '#060606' }}></div>
                     <div className="relative">
-                        <input id="sender-name" className="w-full focus:bg-white focus:bg-opacity-5 outline-none text-sm pl-6 py-1 bg-transparent" style={{ color: '#cc6633' }} placeholder="Your Email / Name :" spellCheck="false" autoComplete="off" type="text" />
+                        <input id="sender-name" className="w-full focus:bg-white focus:bg-opacity-5 outline-none text-sm pl-6 py-1 bg-transparent" style={{ color: '#cc6633' }} placeholder="Your Name :" spellCheck="false" autoComplete="off" type="text" />
                         <span className="absolute left-1 top-1/2 transform -translate-y-1/2 text-xs" style={{ color: '#555' }}>1</span>
                     </div>
                     <div className="relative">
@@ -92,15 +78,17 @@ export class Gedit extends Component {
                         <span className="absolute left-1 top-1 text-xs" style={{ color: '#555' }}>3</span>
                     </div>
                 </div>
-                {
-                    (this.state.sending
-                        ?
-                        <div className="flex justify-center items-center animate-pulse h-full w-full bg-black bg-opacity-50 absolute top-0 left-0">
-                            <img className="w-8 absolute animate-spin" src="./themes/Yaru/status/process-working-symbolic.svg" alt="Loading" style={{ opacity: 0.5 }} />
-                        </div>
-                        : null
-                    )
-                }
+                <div className="flex items-center justify-between px-3 py-1 text-xs font-mono" style={{ backgroundColor: '#111111', borderTop: '1px solid rgba(255,255,255,0.06)', color: '#555', borderRadius: '0 0 12px 12px' }}>
+                    <span>Send opens your mail client</span>
+                    <span
+                        onClick={this.copyAddress}
+                        className="cursor-pointer hover:underline"
+                        style={{ color: '#1793D1' }}
+                        title="Copy address"
+                    >
+                        {CONTACT_EMAIL}
+                    </span>
+                </div>
             </div>
         )
     }
