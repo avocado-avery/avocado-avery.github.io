@@ -32,7 +32,7 @@ Security: Penetration Testing, Incident Response, System Hardening,
       },
       "contact.txt": {
         type: "file",
-        content: `Email:    ajhughes@itsavery.me
+        content: `Email:    info@itsavery.me
 LinkedIn: linkedin.com/in/avery-hughes06
 GitHub:   github.com/avocado-avery
 HackTheBox: profile.hackthebox.com/profile/019cb195-6bda-72b0-abc2-4338a024079e`

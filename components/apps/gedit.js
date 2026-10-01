@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-const CONTACT_EMAIL = 'ajhughes@itsavery.me';
+const CONTACT_EMAIL = 'info@itsavery.me';
 
 export class Gedit extends Component {
 

@@ -11,7 +11,7 @@ export const PROFILE = {
     name: 'Avery Hughes',
     headline: 'Cybersecurity Student & Security Researcher',
     location: 'Fort Wayne, Indiana',
-    email: 'ajhughes@itsavery.me',
+    email: 'info@itsavery.me',
     resume: '/files/Avery-Hughes-Resume.pdf',
 
     intro: [

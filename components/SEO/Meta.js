@@ -17,7 +17,7 @@ export default function Meta() {
         "image": `${siteUrl}/images/Avery-hughes-6485-scaled.jpg`,
         "jobTitle": "Cybersecurity Student",
         "description": description,
-        "email": "mailto:ajhughes@itsavery.me",
+        "email": "mailto:info@itsavery.me",
         "alumniOf": {
             "@type": "CollegeOrUniversity",
             "name": "Indiana Institute of Technology",
