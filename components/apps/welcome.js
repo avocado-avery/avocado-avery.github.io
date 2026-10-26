@@ -57,6 +57,11 @@ export class Welcome extends Component {
                         {/* Link cards */}
                         <div className="flex flex-wrap gap-2 justify-center">
                             <LinkCard
+                                label="Blog"
+                                sub="writeups"
+                                href="https://itsavery.me/blog/"
+                            />
+                            <LinkCard
                                 label="GitHub"
                                 sub="@avocado-avery"
                                 href="https://itsavery.me/github"

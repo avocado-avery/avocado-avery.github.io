@@ -8,6 +8,7 @@ import { displayAboutAvery } from './components/apps/avery';
 import { displayTerminalCalc } from './components/apps/calc';
 import { displayResume } from './components/apps/resume';
 import { displayWelcome } from './components/apps/welcome';
+import { displayBlog } from './components/apps/blog';
 
 const apps = [
     {
@@ -46,6 +47,15 @@ const apps = [
         favourite: true,
         desktop_shortcut: true,
         screen: displayResume,
+    },
+    {
+        id: "blog",
+        title: "Blog",
+        icon: './themes/Yaru/apps/blog.svg',
+        disabled: false,
+        favourite: true,
+        desktop_shortcut: true,
+        screen: displayBlog,
     },
     {
         id: "about-avery",

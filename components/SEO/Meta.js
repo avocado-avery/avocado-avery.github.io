@@ -88,6 +88,7 @@ export default function Meta() {
             <link rel="icon" type="image/png" sizes="96x96" href="/images/logos/favicon-96x96.png" />
             <link rel="apple-touch-icon" sizes="180x180" href="/images/logos/favicon-180x180.png" />
             <link rel="manifest" href="/site.webmanifest" />
+            <link rel="alternate" type="application/atom+xml" title="Avery Hughes — Blog" href="https://itsavery.me/blog/feed.xml" />
 
             {/* Open Graph / Facebook / LinkedIn */}
             <meta property="og:type" content="profile" />
